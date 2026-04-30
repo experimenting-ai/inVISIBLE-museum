@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="/inVISIBLE : L'empreinte de nos silences — Musée virtuel immersif sur la santé mentale">
+  <title>Accueil — /inVISIBLE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* === ACCUEIL — Overrides === */
+
+    /* No padding-top on accueil — hero is full bleed */
+    .page-wrapper { padding-top: 0; }
+
+    /* Nav hidden at top, revealed on scroll */
+    .nav.nav-hidden {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .nav {
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  opacity 0.5s ease;
+    }
+
+    /* Hide scroll progress bar */
+    .scroll-progress { display: none; }
+
+    /* === HERO — Full bleed image === */
+    .hero-accueil {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .hero-accueil-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: url('img/hero-accueil.png') center center / cover no-repeat;
+    }
+
+    .hero-accueil-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        ellipse at center 40%,
+        rgba(18, 18, 18, 0.15) 0%,
+        rgba(18, 18, 18, 0.45) 70%,
+        rgba(18, 18, 18, 0.65) 100%
+      );
+    }
+
+    .hero-accueil-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .hero-accueil-logo {
+      max-width: 380px;
+      width: 55vw;
+      height: auto;
+      opacity: 0;
+      animation: heroFade 1.4s 0.2s forwards;
+    }
+
+    .hero-accueil-subtitle {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(0.75rem, 1.6vw, 0.95rem);
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      opacity: 0;
+      animation: heroFade 1.4s 0.6s forwards;
+    }
+
+    .hero-accueil-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1.5rem;
+      opacity: 0;
+      animation: heroFade 1.4s 1s forwards;
+    }
+
+    .scroll-hint-accueil {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      color: rgba(255, 255, 255, 0.35);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0;
+      animation: heroFade 2s 2s forwards;
+    }
+
+    .scroll-hint-accueil .arrow {
+      width: 12px;
+      height: 12px;
+      border-right: 1.5px solid rgba(255, 255, 255, 0.35);
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.35);
+      transform: rotate(45deg);
+      animation: scrollBounce 2.5s infinite;
+    }
+
+    @keyframes heroFade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollBounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.25; }
+      50% { transform: rotate(45deg) translateY(5px); opacity: 0.55; }
+    }
+
+    /* === COMMENT ÇA SE VISITE — Flow diagram === */
+    .visit-flow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      padding: 0 1rem;
+    }
+
+    .visit-step {
+      text-align: center;
+      min-width: 100px;
+      max-width: 140px;
+    }
+
+    .visit-step-dome {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .visit-step-shape {
+      width: 80px;
+      height: 50px;
+      border-radius: 40px 40px 0 0;
+      opacity: 0.6;
+      margin: 0 auto 0.6rem;
+    }
+
+    .visit-step-shape.large {
+      width: 100px;
+      height: 60px;
+      border-radius: 50px 50px 0 0;
+    }
+
+    .visit-step h4 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--blanc);
+      margin-bottom: 0.2rem;
+    }
+
+    .visit-step p {
+      font-size: 0.78rem;
+      color: var(--blanc-40);
+      line-height: 1.4;
+    }
+
+    .visit-arrow {
+      color: var(--blanc-20);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .visit-dome-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .visit-dome-row {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .visit-dome-pip {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+
+    .visit-dome-label {
+      font-size: 0.7rem;
+      color: var(--blanc-40);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* === QUICK ACCESS CARDS — Full color, single row === */
+    .cards-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .card-full {
+      border-radius: 16px;
+      padding: 1.6rem 1.4rem;
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .card-full:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      filter: brightness(1.08);
+    }
+
+    .card-full .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.3rem;
+      flex-shrink: 0;
+    }
+
+    .card-full .card-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .card-full.bg-etranglement .card-icon {
+      background: rgba(44, 44, 58, 0.12);
+    }
+
+    .card-full.bg-etranglement .card-icon svg {
+      stroke: #2c2c3a;
+    }
+
+    .card-full h3 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #fff;
+    }
+
+    .card-full p {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.5;
+    }
+
+    .card-full.bg-denim { background: var(--denim-delave); }
+    .card-full.bg-prune { background: var(--prune-royale); }
+    .card-full.bg-sarcelle { background: var(--sarcelle-discret); }
+    .card-full.bg-etranglement { background: var(--etranglement); color: #2c2c3a; }
+    .card-full.bg-etranglement h3 { color: #2c2c3a; }
+    .card-full.bg-etranglement p { color: rgba(44, 44, 58, 0.7); }
+
+    /* === SECTION TITLES — Uppercase === */
+    .section h2 {
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* === BLOCKQUOTE (citation) === */
+    .quote-section {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .quote-section blockquote {
+      border: none;
+      padding: 0;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--blanc-60);
+      line-height: 1.65;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 900px) {
+      .cards-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .cards-row { grid-template-columns: 1fr; }
+      .visit-flow { gap: 0.8rem; }
+      .hero-accueil-logo { max-width: 240px; width: 65vw; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-accueil-logo,
+      .hero-accueil-subtitle,
+      .hero-accueil-cta,
+      .scroll-hint-accueil { animation: none; opacity: 1; }
+      .scroll-hint-accueil .arrow { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
+
+  <nav class="nav nav-hidden" role="navigation" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Accueil /inVISIBLE">
+        <img src="img/logo-white.png" alt="/inVISIBLE" class="nav-logo-img">
+        <span class="nav-logo-text">/inVISIBLE</span>
+      </a>
+      <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">ACCUEIL</a></li>
+        <li><a href="sas-in.html">EXPÉRIENCE</a></li>
+        <li><a href="projet.html">LE PROJET</a></li>
+        <li><a href="ressources.html">RESSOURCES</a></li>
+        <li><a href="accessibilite.html">ACCESSIBILITÉ</a></li>
+      </ul>
+      <div class="lang-toggle" role="group" aria-label="Choix de langue">
+        <button class="lang-btn lang-active" aria-pressed="true">FR</button>
+        <button class="lang-btn" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-wrapper" id="main-content">
+    <!-- HERO — Image plein écran, flush to top -->
+    <section class="hero-accueil" role="banner">
+      <div class="hero-accueil-bg" aria-hidden="true"></div>
+      <div class="hero-accueil-content">
+        <img src="img/logo-white.png" alt="/inVISIBLE" class="hero-accueil-logo">
+        <p class="hero-accueil-subtitle">L'empreinte de nos silences</p>
+        <div class="hero-accueil-cta">
+          <a href="sas-in.html" class="btn btn-primary">ENTRER DANS L'EXPÉRIENCE</a>
+          <a href="projet.html" class="btn btn-outline">DÉCOUVRIR LE PROJET</a>
+        </div>
+      </div>
+      <div class="scroll-hint-accueil">
+        <span>Découvrir</span>
+        <div class="arrow"></div>
+      </div>
+    </section>
+
+    <!-- COMMENT ÇA SE VISITE -->
+    <section class="section" style="background:rgba(255,255,255,0.02);">
+      <div class="section-wide center">
+        <h2 class="fade-in" style="margin-bottom:var(--space-lg);">COMMENT ÇA SE VISITE</h2>
+
+        <div class="visit-flow fade-in">
+          <!-- SAS IN -->
+          <div class="visit-step">
+            <div class="visit-step-shape" style="background:linear-gradient(135deg,var(--denim-delave),var(--sarcelle-discret));"></div>
+            <h4>SAS IN</h4>
+            <p>Préparation émotionnelle</p>
+          </div>
+
+          <span class="visit-arrow" aria-hidden="true">›</span>
+
+          <!-- Hall Central -->
+          <div class="visit-step">
+            <div class="visit-step-shape large" style="background:linear-gradient(135deg,var(--sarcelle-discret),var(--etranglement));"></div>
+            <h4>HALL CENTRAL</h4>
+            <p>Hub de navigation</p>
+          </div>
+
+          <span class="visit-arrow" aria-hidden="true">›</span>
+
+          <!-- Dômes (×3) -->
+          <div class="visit-dome-group">
+            <div class="visit-dome-row">
+              <div class="visit-dome-pip" style="background:var(--prune-royale);"></div>
+              <div class="visit-dome-pip" style="background:var(--denim-delave);"></div>
+              <div class="visit-dome-pip" style="background:var(--sarcelle-discret);"></div>
+            </div>
+            <h4 style="font-family:'IBM Plex Sans',sans-serif;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--blanc);margin-top:0.3rem;">DÔMES</h4>
+            <p style="font-size:0.78rem;color:var(--blanc-40);">3 témoignages × 3 actes</p>
+          </div>
+
+          <span class="visit-arrow" aria-hidden="true">›</span>
+
+          <!-- Retour Hall Central -->
+          <div class="visit-step">
+            <div class="visit-step-shape large" style="background:linear-gradient(135deg,var(--sarcelle-discret),var(--etranglement));opacity:0.4;"></div>
+            <h4>HALL CENTRAL</h4>
+            <p>Retour &amp; pause</p>
+          </div>
+
+          <span class="visit-arrow" aria-hidden="true">›</span>
+
+          <!-- SAS OUT -->
+          <div class="visit-step">
+            <div class="visit-step-shape" style="background:linear-gradient(135deg,var(--etranglement),var(--sarcelle-discret));"></div>
+            <h4>SAS OUT</h4>
+            <p>Décompression</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARTES D'ACCÈS RAPIDE — Full color, single row -->
+    <section class="section">
+      <div class="cards-row fade-in">
+        <a href="sas-in.html" class="card-full bg-denim">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          </div>
+          <h3>ENTRER DANS L'EXPÉRIENCE</h3>
+          <p>Plongez dans un musée virtuel où des témoignages prennent forme en environnements sensoriels.</p>
+        </a>
+        <a href="projet.html" class="card-full bg-prune">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          </div>
+          <h3>À PROPOS DU PROJET</h3>
+          <p>Découvrez la démarche, l'équipe et les principes éthiques derrière /inVISIBLE.</p>
+        </a>
+        <a href="accessibilite.html" class="card-full bg-sarcelle">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8a2.5 2.5 0 0 0-2 4l2 2 2-2a2.5 2.5 0 0 0-2-4z"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>
+          </div>
+          <h3>ACCESSIBILITÉ</h3>
+          <p>Réglez l'expérience selon vos besoins : intensité visuelle, transcriptions, navigation clavier.</p>
+        </a>
+        <a href="ressources.html" class="card-full bg-etranglement">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          </div>
+          <h3>RESSOURCES</h3>
+          <p>Lignes d'aide, organismes et pistes pour prolonger la réflexion après votre visite.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- MESSAGE CENTRAL -->
+    <section class="section center">
+      <div class="quote-section fade-in">
+        <blockquote>
+          Rendre perceptible l'invisible intérieur afin de favoriser l'empathie, la compréhension et le dialogue autour de la santé mentale.
+        </blockquote>
+      </div>
+    </section>
+  </main>
+
+  <!-- Zone de soutien (info + espace protégé) -->
+  <div class="support-zone">
+    <button class="support-dot" aria-label="Ressources de soutien" aria-expanded="false" aria-controls="support-menu">i</button>
+    <div class="support-dropdown" id="support-menu" role="region" aria-label="Lignes d'aide et soutien">
+      <div class="support-dropdown-title">Besoin d'aide ?</div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--denim-delave);color:var(--blanc);">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Tel-Aide</strong>
+          <span>Écoute 24/7, confidentielle et gratuite</span><br>
+          <a href="tel:5149351101">514 935-1101</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--sarcelle-discret);color:var(--blanc);">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Prévention du suicide</strong>
+          <span>Ligne québécoise — 24/7</span><br>
+          <a href="tel:18662773553">1-866-APPELLE (277-3553)</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--prune-royale);color:var(--blanc);">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Crisis Text Line</strong>
+          <span>Soutien par texto — 24/7</span><br>
+          <a href="sms:686868">Textez BONJOUR au 686868</a>
+        </div>
+      </div>
+      <div class="support-dropdown-footer">
+        <a href="ressources.html">Voir toutes les ressources →</a>
+      </div>
+    </div>
+    <button class="espace-protege" aria-label="Espace protégé — accéder à un espace calme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Espace protégé
+    </button>
+  </div>
+
+  <div class="presence-zone">
+    <div class="presence-indicator" aria-label="Visiteurs actuellement présents">
+    <div class="presence-dots" aria-hidden="true">
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+    </div>
+    <span class="presence-text">
+      <span class="presence-count">0</span>
+      <span class="presence-label">présence</span>
+    </span>
+    </div>
+    <button class="a11y-dot" aria-label="Réglages d'accessibilité" aria-expanded="false" aria-controls="a11y-quick-menu">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+    <div class="a11y-dropdown" id="a11y-quick-menu" role="region" aria-label="Réglages rapides d'accessibilité">
+      <div class="a11y-dropdown-title">Accessibilité</div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+          Animations
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Désactiver les animations" tabindex="0" data-key="a11y-reduce-motion"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z"/></svg>
+          Contraste
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Activer le contraste élevé" tabindex="0" data-key="a11y-high-contrast"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+          Texte agrandi
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Agrandir le texte" tabindex="0" data-key="a11y-large-text"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+          Focus renforcé
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Renforcer les indicateurs de focus" tabindex="0" data-key="a11y-focus-enhanced"></div>
+      </div>
+      <div class="a11y-volume-row">
+        <button class="a11y-mute-btn" aria-label="Couper le son" tabindex="0">
+          <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+        <input type="range" class="a11y-volume-slider" min="0" max="100" value="80" aria-label="Volume" tabindex="0">
+        <span class="a11y-volume-value">80%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal espace protégé -->
+  <div id="espace-protege-modal" class="modal" role="dialog" aria-label="Espace protégé" aria-modal="true" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(18,18,18,0.95);backdrop-filter:blur(30px);">
+    <div style="max-width:600px;margin:auto;padding:4rem 2rem;text-align:center;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+      <h2 style="margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em;">ESPACE PROTÉGÉ</h2>
+      <p style="color:rgba(255,255,255,0.6);margin-bottom:2rem;">Vous êtes dans un espace calme et sécuritaire. Prenez le temps dont vous avez besoin. Aucune pression, aucun jugement.</p>
+      <p style="color:rgba(255,255,255,0.4);font-size:0.9rem;margin-bottom:2rem;">Si vous avez besoin de soutien, n'hésitez pas à contacter une ligne d'aide :<br><strong style="color:#86BBB6;">Tel-Aide : 514 935-1101</strong></p>
+      <button class="modal-close btn btn-outline" onclick="document.getElementById('espace-protege-modal').style.display='none'">RETOURNER À L'EXPÉRIENCE</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="img/logo-white.png" alt="/inVISIBLE" class="footer-brand-logo">
+        <p>Un musée virtuel immersif qui traduit des témoignages de santé mentale en environnements sensoriels. Créé avec respect, éthique et bienveillance.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <ul>
+          <li><a href="sas-in.html">L'expérience web</a></li>
+          <li><a href="#">L'expérience VR</a></li>
+          <li><a href="dome1-acte1.html">Dôme 1</a></li>
+          <li><a href="dome2-acte1.html">Dôme 2</a></li>
+          <li><a href="dome3-acte1.html">Dôme 3</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Le projet</h4>
+        <ul>
+          <li><a href="projet.html">À propos</a></li>
+          <li><a href="credits.html">Crédits</a></li>
+          <li><a href="ressources.html">Ressources</a></li>
+          <li><a href="accessibilite.html">Accessibilité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Soutien</h4>
+        <ul>
+          <li><a href="ressources.html">Lignes d'aide</a></li>
+          <li><a href="accessibilite.html">Réglages d'accessibilité</a></li>
+          <li><a href="mailto:info@invisible-museum.ca">Nous contacter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 /inVISIBLE — Société des Arts Technologiques. Tous droits réservés.</p>
+      <ul class="footer-bottom-links">
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+
+  <script>
+    // === Nav reveal on scroll ===
+    ;(function() {
+      const nav = document.querySelector('.nav');
+      const heroSection = document.querySelector('.hero-accueil');
+      if (!nav || !heroSection) return;
+
+      function updateNav() {
+        const threshold = heroSection.offsetHeight * 0.35;
+        if (window.scrollY > threshold) {
+          nav.classList.remove('nav-hidden');
+        } else {
+          nav.classList.add('nav-hidden');
+        }
+      }
+
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => { updateNav(); ticking = false; });
+          ticking = true;
+        }
+      });
+      updateNav();
+
+      // Hide scroll hint
+      const hint = document.querySelector('.scroll-hint-accueil');
+      if (hint) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 80) {
+            hint.style.opacity = '0';
+            hint.style.transition = 'opacity 0.5s';
+          }
+        }, { once: true });
+      }
+    })();
+
+    // Espace protégé
+    document.querySelector('.espace-protege')?.addEventListener('click', () => {
+      window.location.href = 'sas-in.html#respiration';
+    });
+  </script>
+</body>
+</html>

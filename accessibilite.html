@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="/inVISIBLE : L'empreinte de nos silences — Musée virtuel immersif sur la santé mentale. Page d'accessibilité et réglages.">
+  <title>Accessibilité — /inVISIBLE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* --- Accessibility page-specific styles --- */
+    .a11y-controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .a11y-control-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--blanc-20);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .a11y-control-card h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .a11y-control-card h4 svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    .a11y-control-card p {
+      font-size: 0.85rem;
+      color: var(--blanc-60);
+      margin-bottom: 1rem;
+      max-width: none;
+    }
+
+    /* Toggle switch */
+    .a11y-toggle-switch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      min-height: 44px;
+      padding: 4px 0;
+    }
+
+    .a11y-toggle-switch input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-track {
+      width: 48px;
+      height: 26px;
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .toggle-track::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--blanc-60);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .a11y-toggle-switch input:checked + .toggle-track {
+      background: var(--sarcelle-discret);
+      border-color: var(--sarcelle-discret);
+    }
+
+    .a11y-toggle-switch input:checked + .toggle-track::after {
+      transform: translateX(22px);
+      background: var(--blanc);
+    }
+
+    .a11y-toggle-switch input:focus-visible + .toggle-track {
+      outline: 2px solid var(--sarcelle-discret);
+      outline-offset: 3px;
+    }
+
+    .toggle-label {
+      font-size: 0.85rem;
+      color: var(--blanc-60);
+      user-select: none;
+    }
+
+    /* Conformance table */
+    .conformance-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: var(--space-sm);
+    }
+
+    .conformance-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      border: 1px solid var(--blanc-20);
+      font-size: 0.88rem;
+    }
+
+    .conformance-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      min-width: 36px;
+    }
+
+    .badge-aa {
+      background: var(--sarcelle-discret);
+      color: var(--charbon-doux);
+    }
+
+    .badge-a {
+      background: var(--denim-delave);
+      color: var(--blanc);
+    }
+
+    /* Principle sections */
+    .principle-section {
+      margin-top: var(--space-lg);
+    }
+
+    .principle-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .principle-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .principle-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .principle-item {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.88rem;
+      color: var(--blanc-80);
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .principle-item svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      stroke: var(--sarcelle-discret);
+      fill: none;
+      stroke-width: 2;
+      position: relative;
+      top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
+
+  <nav class="nav" role="navigation" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Accueil /inVISIBLE">
+        <img src="img/logo-white.png" alt="/inVISIBLE" class="nav-logo-img">
+        <span class="nav-logo-text">/inVISIBLE</span>
+      </a>
+      <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">ACCUEIL</a></li>
+        <li><a href="sas-in.html">EXPÉRIENCE</a></li>
+        <li><a href="projet.html">LE PROJET</a></li>
+        <li><a href="ressources.html">RESSOURCES</a></li>
+        <li><a href="accessibilite.html">ACCESSIBILITÉ</a></li>
+      </ul>
+      <div class="lang-toggle" role="group" aria-label="Choix de langue">
+        <button class="lang-btn lang-active" aria-pressed="true">FR</button>
+        <button class="lang-btn" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-wrapper" id="main-content">
+    <!-- Hero -->
+    <section class="hero" style="min-height:40vh;" aria-labelledby="a11y-title">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <h1 class="hero-title fade-in" id="a11y-title">Accessibilité</h1>
+      <p class="hero-subtitle fade-in">Un musée conçu pour être accessible, sécuritaire et respectueux de chaque visiteur.</p>
+    </section>
+
+    <!-- Engagement -->
+    <section class="section" aria-labelledby="engagement-title">
+      <div class="section-narrow fade-in">
+        <h2 id="engagement-title" style="margin-bottom:var(--space-md);">Notre engagement</h2>
+        <p>/inVISIBLE est conçu selon les normes WCAG 2.2 niveau AA. L'accessibilité n'est pas un ajout : elle fait partie intégrante de la conception du projet, depuis les choix de couleurs jusqu'aux modes de navigation et à la sécurité émotionnelle.</p>
+        <p style="margin-top:var(--space-sm);">Le site respecte les quatre principes fondamentaux du W3C : perceptible, utilisable, compréhensible et robuste, avec une couche supplémentaire propre au projet : la sécurité émotionnelle et le consentement éclairé du visiteur.</p>
+      </div>
+    </section>
+
+    <!-- Réglages d'accessibilité — panneau de contrôle -->
+    <section class="section" style="background:rgba(255,255,255,0.02);" aria-labelledby="settings-title">
+      <div class="section-wide fade-in">
+        <h2 id="settings-title" style="margin-bottom:var(--space-xs);text-align:center;">Réglages d'accessibilité</h2>
+        <p style="text-align:center;margin:0 auto var(--space-md);color:var(--blanc-60);max-width:560px;">Adaptez l'expérience selon vos besoins. Ces préférences sont sauvegardées pour votre prochaine visite.</p>
+
+        <div class="a11y-controls-grid">
+          <!-- Animation toggle -->
+          <div class="a11y-control-card">
+            <h4>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+              Désactiver les animations
+            </h4>
+            <p>Arrête toutes les animations, transitions et effets de défilement. Recommandé en cas de sensibilité au mouvement ou d'épilepsie photosensible.</p>
+            <label class="a11y-toggle-switch">
+              <input type="checkbox" id="toggle-reduce-motion" aria-describedby="desc-reduce-motion">
+              <span class="toggle-track" aria-hidden="true"></span>
+              <span class="toggle-label" id="desc-reduce-motion">Mouvement réduit</span>
+            </label>
+          </div>
+
+          <!-- High contrast -->
+          <div class="a11y-control-card">
+            <h4>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z"/></svg>
+              Contraste élevé
+            </h4>
+            <p>Augmente le contraste de tous les textes et contours pour une meilleure lisibilité. Conforme WCAG AAA (≥ 7:1).</p>
+            <label class="a11y-toggle-switch">
+              <input type="checkbox" id="toggle-high-contrast" aria-describedby="desc-high-contrast">
+              <span class="toggle-track" aria-hidden="true"></span>
+              <span class="toggle-label" id="desc-high-contrast">Contraste renforcé</span>
+            </label>
+          </div>
+
+          <!-- Large text -->
+          <div class="a11y-control-card">
+            <h4>
+              <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+              Texte agrandi
+            </h4>
+            <p>Augmente la taille de base des textes de 25 % pour une lecture plus confortable.</p>
+            <label class="a11y-toggle-switch">
+              <input type="checkbox" id="toggle-large-text" aria-describedby="desc-large-text">
+              <span class="toggle-track" aria-hidden="true"></span>
+              <span class="toggle-label" id="desc-large-text">Texte plus grand</span>
+            </label>
+          </div>
+
+          <!-- Focus indicators -->
+          <div class="a11y-control-card">
+            <h4>
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+              Indicateurs de focus renforcés
+            </h4>
+            <p>Rend les indicateurs de navigation clavier plus visibles avec un contour épais et lumineux.</p>
+            <label class="a11y-toggle-switch">
+              <input type="checkbox" id="toggle-focus-enhanced" aria-describedby="desc-focus-enhanced">
+              <span class="toggle-track" aria-hidden="true"></span>
+              <span class="toggle-label" id="desc-focus-enhanced">Focus visible renforcé</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fonctionnalités intégrées -->
+    <section class="section" aria-labelledby="features-title">
+      <div class="section-wide fade-in">
+        <h2 id="features-title" style="margin-bottom:var(--space-md);text-align:center;">Fonctionnalités intégrées</h2>
+        <div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+          <div class="card card-solid bg-sarcelle">
+            <h4 style="margin-bottom:var(--space-xs);">Navigation clavier complète</h4>
+            <p style="font-size:0.9rem;">L'ensemble du site est navigable au clavier avec Tab, Entrée et Échap. Un lien « Aller au contenu » apparaît au focus.</p>
+          </div>
+          <div class="card card-solid bg-denim">
+            <h4 style="margin-bottom:var(--space-xs);">Textes alternatifs</h4>
+            <p style="font-size:0.9rem;">Tous les contenus visuels disposent de descriptions privilégiant l'intention émotionnelle et l'atmosphère ressentie.</p>
+          </div>
+          <div class="card card-solid bg-prune">
+            <h4 style="margin-bottom:var(--space-xs);">Transcriptions et sous-titrage</h4>
+            <p style="font-size:0.9rem;">Tous les témoignages audio et vidéo sont accompagnés de transcriptions complètes et de sous-titrage FR/EN.</p>
+          </div>
+          <div class="card card-solid bg-etranglement">
+            <h4 style="margin-bottom:var(--space-xs);">Version web standard</h4>
+            <p style="font-size:0.9rem;">Tous les contenus immersifs sont disponibles en version web accessible : textes, images fixes, vidéos sous-titrées.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sécurité émotionnelle -->
+    <section class="section" style="background:rgba(255,255,255,0.02);" aria-labelledby="safety-title">
+      <div class="section-narrow fade-in">
+        <h2 id="safety-title" style="margin-bottom:var(--space-md);">Sécurité émotionnelle</h2>
+        <p>Le contenu de /inVISIBLE aborde la santé mentale à travers des témoignages réels. Des mesures spécifiques sont intégrées pour protéger le visiteur :</p>
+
+        <div class="principle-items" style="margin-top:var(--space-sm);">
+          <div class="principle-item">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>Avertissement préalable</strong> — Un SAS d'entrée informe le visiteur de la nature du contenu avant toute exposition.</span>
+          </div>
+          <div class="principle-item">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>Bouton « Espace protégé »</strong> — Toujours visible, il redirige vers un exercice de respiration et un espace calme.</span>
+          </div>
+          <div class="principle-item">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>Exercice de retour au calme</strong> — Respiration guidée 4-7-8, cohérence cardiaque et ancrage sensoriel disponibles à tout moment.</span>
+          </div>
+          <div class="principle-item">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>Lignes d'aide</strong> — Coordonnées de ressources de soutien disponibles dans le SAS de sortie et la page Ressources.</span>
+          </div>
+          <div class="principle-item">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span><strong>Aucun auto-play brutal</strong> — Le contenu ne se déclenche jamais sans action explicite du visiteur.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conformité WCAG -->
+    <section class="section" aria-labelledby="conformance-title">
+      <div class="section-narrow fade-in">
+        <h2 id="conformance-title" style="margin-bottom:var(--space-md);">Conformité WCAG 2.2</h2>
+        <p style="margin-bottom:var(--space-sm);">/inVISIBLE vise le niveau AA sur les quatre principes du W3C.</p>
+
+        <div class="conformance-list">
+          <div class="conformance-item">
+            <span class="conformance-badge badge-aa">AA</span>
+            <span>Contraste texte ≥ 4.5:1 sur tous les fonds</span>
+          </div>
+          <div class="conformance-item">
+            <span class="conformance-badge badge-aa">AA</span>
+            <span>Zones interactives ≥ 44 × 44 px</span>
+          </div>
+          <div class="conformance-item">
+            <span class="conformance-badge badge-aa">AA</span>
+            <span>Navigation clavier complète avec indicateurs de focus</span>
+          </div>
+          <div class="conformance-item">
+            <span class="conformance-badge badge-a">A</span>
+            <span>Textes alternatifs sur tous les contenus non textuels</span>
+          </div>
+          <div class="conformance-item">
+            <span class="conformance-badge badge-a">A</span>
+            <span>Transcriptions et sous-titrage intégral</span>
+          </div>
+          <div class="conformance-item">
+            <span class="conformance-badge badge-a">A</span>
+            <span>Désactivation des animations (système + bouton)</span>
+          </div>
+          <div class="conformance-item">
+            <span class="conformance-badge badge-aa">AA</span>
+            <span>Sécurité émotionnelle : avertissement, espace protégé, retour au calme</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Palette chromatique -->
+    <section class="section" style="background:rgba(255,255,255,0.02);" aria-labelledby="palette-title">
+      <div class="section-wide fade-in center">
+        <h3 id="palette-title" style="margin-bottom:var(--space-md);">Palette chromatique</h3>
+        <p style="text-align:center;margin:0 auto var(--space-md);color:var(--blanc-60);max-width:520px;">Toutes les combinaisons texte/fond respectent un ratio de contraste ≥ 4.5:1 (WCAG AA). Les couleurs d'accent ne sont jamais le seul vecteur d'information.</p>
+        <div style="display:flex;gap:var(--space-sm);justify-content:center;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="width:80px;height:80px;border-radius:50%;background:#121212;border:2px solid var(--blanc-20);margin:0 auto var(--space-xs);" role="img" aria-label="Charbon Doux #121212"></div>
+            <small>Charbon Doux</small>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:80px;border-radius:50%;background:#FFFFFF;margin:0 auto var(--space-xs);" role="img" aria-label="Blanc #FFFFFF"></div>
+            <small>Blanc</small>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:80px;border-radius:50%;background:#7A3B69;margin:0 auto var(--space-xs);" role="img" aria-label="Prune Royale #7A3B69"></div>
+            <small>Prune Royale</small>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:80px;border-radius:50%;background:#6B8FB3;margin:0 auto var(--space-xs);" role="img" aria-label="Denim Délavé #6B8FB3"></div>
+            <small>Denim Délavé</small>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:80px;border-radius:50%;background:#86BBB6;margin:0 auto var(--space-xs);" role="img" aria-label="Sarcelle Discret #86BBB6"></div>
+            <small>Sarcelle</small>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:80px;border-radius:50%;background:#D4C9E3;margin:0 auto var(--space-xs);" role="img" aria-label="Étranglement #D4C9E3"></div>
+            <small>Étranglement</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section center" aria-labelledby="contact-a11y-title">
+      <div class="section-narrow fade-in">
+        <h3 id="contact-a11y-title" style="margin-bottom:var(--space-sm);">Un problème d'accessibilité ?</h3>
+        <p style="text-align:center;margin:0 auto var(--space-md);">Si vous rencontrez une difficulté d'accès ou souhaitez nous signaler un problème, n'hésitez pas à nous contacter.</p>
+        <a href="mailto:info@invisible-museum.ca" class="btn btn-outline">Nous contacter</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Zone de soutien (info + espace protégé) -->
+  <div class="support-zone">
+    <button class="support-dot" aria-label="Ressources de soutien" aria-expanded="false" aria-controls="support-menu">i</button>
+    <div class="support-dropdown" id="support-menu" role="region" aria-label="Lignes d'aide et soutien">
+      <div class="support-dropdown-title">Besoin d'aide ?</div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--denim-delave);color:var(--blanc);">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Tel-Aide</strong>
+          <span>Écoute 24/7, confidentielle et gratuite</span><br>
+          <a href="tel:5149351101">514 935-1101</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--sarcelle-discret);color:var(--blanc);">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Prévention du suicide</strong>
+          <span>Ligne québécoise — 24/7</span><br>
+          <a href="tel:18662773553">1-866-APPELLE (277-3553)</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--prune-royale);color:var(--blanc);">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Crisis Text Line</strong>
+          <span>Soutien par texto — 24/7</span><br>
+          <a href="sms:686868">Textez BONJOUR au 686868</a>
+        </div>
+      </div>
+      <div class="support-dropdown-footer">
+        <a href="ressources.html">Voir toutes les ressources →</a>
+      </div>
+    </div>
+    <button class="espace-protege" aria-label="Espace protégé — accéder à un espace calme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Espace protégé
+    </button>
+  </div>
+
+  <!-- Indicateur de présences -->
+  <div class="presence-zone">
+    <div class="presence-indicator" aria-label="Visiteurs actuellement présents">
+    <div class="presence-dots" aria-hidden="true">
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+    </div>
+    <span class="presence-text">
+      <span class="presence-count">0</span>
+      <span class="presence-label">présence</span>
+    </span>
+    </div>
+    <button class="a11y-dot" aria-label="Réglages d'accessibilité" aria-expanded="false" aria-controls="a11y-quick-menu">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+    <div class="a11y-dropdown" id="a11y-quick-menu" role="region" aria-label="Réglages rapides d'accessibilité">
+      <div class="a11y-dropdown-title">Accessibilité</div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+          Animations
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Désactiver les animations" tabindex="0" data-key="a11y-reduce-motion"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z"/></svg>
+          Contraste
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Activer le contraste élevé" tabindex="0" data-key="a11y-high-contrast"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+          Texte agrandi
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Agrandir le texte" tabindex="0" data-key="a11y-large-text"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+          Focus renforcé
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Renforcer les indicateurs de focus" tabindex="0" data-key="a11y-focus-enhanced"></div>
+      </div>
+      <div class="a11y-volume-row">
+        <button class="a11y-mute-btn" aria-label="Couper le son" tabindex="0">
+          <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+        <input type="range" class="a11y-volume-slider" min="0" max="100" value="80" aria-label="Volume" tabindex="0">
+        <span class="a11y-volume-value">80%</span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="img/logo-white.png" alt="/inVISIBLE" class="footer-brand-logo">
+        <p>Un musée virtuel immersif qui traduit des témoignages de santé mentale en environnements sensoriels. Créé avec respect, éthique et bienveillance.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <ul>
+          <li><a href="sas-in.html">L'expérience web</a></li>
+          <li><a href="#">L'expérience VR</a></li>
+          <li><a href="dome1-acte1.html">Dôme 1</a></li>
+          <li><a href="dome2-acte1.html">Dôme 2</a></li>
+          <li><a href="dome3-acte1.html">Dôme 3</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Le projet</h4>
+        <ul>
+          <li><a href="projet.html">À propos</a></li>
+          <li><a href="credits.html">Crédits</a></li>
+          <li><a href="ressources.html">Ressources</a></li>
+          <li><a href="accessibilite.html">Accessibilité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Soutien</h4>
+        <ul>
+          <li><a href="ressources.html">Lignes d'aide</a></li>
+          <li><a href="accessibilite.html">Réglages d'accessibilité</a></li>
+          <li><a href="mailto:info@invisible-museum.ca">Nous contacter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 /inVISIBLE — Société des Arts Technologiques. Tous droits réservés.</p>
+      <ul class="footer-bottom-links">
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script>
+    // Espace protégé — redirect to breathing
+    document.querySelector('.espace-protege')?.addEventListener('click', () => {
+      window.location.href = 'sas-in.html#respiration';
+    });
+
+    // --- Accessibility toggles with localStorage persistence ---
+    (function() {
+      const toggles = [
+        { id: 'toggle-reduce-motion', attr: 'data-reduce-motion', key: 'a11y-reduce-motion' },
+        { id: 'toggle-high-contrast', attr: 'data-high-contrast', key: 'a11y-high-contrast' },
+        { id: 'toggle-large-text', attr: 'data-large-text', key: 'a11y-large-text' },
+        { id: 'toggle-focus-enhanced', attr: 'data-focus-enhanced', key: 'a11y-focus-enhanced' }
+      ];
+
+      toggles.forEach(({ id, attr, key }) => {
+        const input = document.getElementById(id);
+        if (!input) return;
+
+        // Restore from localStorage
+        const saved = localStorage.getItem(key);
+        if (saved === 'true') {
+          input.checked = true;
+          document.body.setAttribute(attr, 'true');
+
+          // Apply large text immediately
+          if (key === 'a11y-large-text') {
+            document.documentElement.style.fontSize = '20px';
+          }
+        }
+
+        input.addEventListener('change', () => {
+          if (input.checked) {
+            document.body.setAttribute(attr, 'true');
+            localStorage.setItem(key, 'true');
+            if (key === 'a11y-large-text') {
+              document.documentElement.style.fontSize = '20px';
+            }
+          } else {
+            document.body.removeAttribute(attr);
+            localStorage.removeItem(key);
+            if (key === 'a11y-large-text') {
+              document.documentElement.style.fontSize = '';
+            }
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
