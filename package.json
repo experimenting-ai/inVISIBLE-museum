@@ -1,0 +1,32 @@
+{
+  "name": "invisible-museum",
+  "version": "1.0.0",
+  "description": "IN/VISIBLE — L'empreinte de nos silences. Musée virtuel immersif sur la santé mentale.",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .js,.jsx"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.0",
+    "vite": "^5.0.0",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2"
+  },
+  "keywords": [
+    "museum",
+    "virtual-museum",
+    "mental-health",
+    "webxr",
+    "immersive",
+    "accessibility"
+  ],
+  "author": "SAT / Institut Douglas / Experimenting.ai",
+  "license": "UNLICENSED"
+}
