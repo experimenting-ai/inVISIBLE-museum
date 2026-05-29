@@ -1,0 +1,78 @@
+/* ════════════════════════════════════════════════════════════════════════
+   /inVISIBLE — brand.css
+   Source of truth for design tokens shared across every canonical page
+   (final-landing, final-hall, final-dome-*, design-system).
+   Aligned with the design system v1 (Mai 2026) — palette verrouillée,
+   échelle de tracking IBM Plex, dérivés deep-text AA.
+   ════════════════════════════════════════════════════════════════════════ */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@400;700&display=swap");
+
+:root {
+  /* ── Typographie ────────────────────────────────────────────── */
+  /* Chestuh Script n'est pas hosté → fallback Caveat (calibration script).
+     IBM Plex Sans plafonne à 700 ; le « bold synthétique » se fait via
+     text-stroke côté page (cf. design-system.html). */
+  --f-display: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --f-sans:    "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --f-mono:    "IBM Plex Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  --f-script:  "Chestuh Script", "Caveat", cursive;
+
+  /* ── Surfaces ───────────────────────────────────────────────── */
+  --c-paper:    #F4EFE5;   /* fond principal */
+  --c-paper-2:  #EBE5D6;   /* paper warm — bandes secondaires */
+  --c-paper-3:  #DDD5C2;   /* paper deep — séparateurs */
+
+  /* ── Encres ─────────────────────────────────────────────────── */
+  --c-ink:      #121212;   /* texte primaire / Onyx */
+  --c-ink-2:    #2A2D36;   /* texte secondaire / lede */
+  --c-meta:     #5E6068;   /* métadonnées / mono / eyebrow */
+
+  /* ── Palette témoins (verrouillée) ──────────────────────────── */
+  --c-onyx:     #121212;
+  --c-plum:     #7A3B69;   /* Royal Plum   · Léa   · D01 */
+  --c-denim:    #6B8FB3;   /* Dusty Denim  · Mateo · D02 */
+  --c-teal:     #86BBB6;   /* Muted Teal   · Aïcha · D03 */
+  --c-thistle:  #D4C9E3;   /* Thistle      · Wren  · D04 */
+  --c-lavender: #D4C9E3;   /* alias historique : lavender = thistle */
+
+  /* ── Dérivés profonds (deep-text · AA sur paper) ────────────── */
+  --c-plum-deep:    #4D2342;
+  --c-denim-deep:   #3F5F82;
+  --c-teal-deep:    #2E6F73;
+  --c-thistle-deep: #6D5B96;
+
+  /* ── Pâles (acte III light, fonds doux par témoin) ──────────── */
+  --c-plum-pale:    #EBD9E3;
+  --c-denim-pale:   #D5E0EC;
+  --c-teal-pale:    #D7E7E4;
+  --c-thistle-pale: #E8DFF1;
+
+  /* ── Lignes & règles ────────────────────────────────────────── */
+  --c-line:     rgba(18, 18, 18, 0.12);
+  --c-line-2:   rgba(18, 18, 18, 0.22);
+  --c-rule:     rgba(18, 18, 18, 0.08);
+}
+
+/* ── Bilingue · FR par défaut ──────────────────────────────────── */
+html[data-lang="fr"] [data-lang="en"],
+html:not([data-lang]) [data-lang="en"] { display: none; }
+html[data-lang="en"] [data-lang="fr"]   { display: none; }
+
+/* ── Reduced motion floor (WCAG 2.3.3) ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Reset léger · partagé par toutes les pages ────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font: inherit; }
+img, svg { display: block; max-width: 100%; }
