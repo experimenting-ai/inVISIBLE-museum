@@ -1,0 +1,92 @@
+/* /inVISIBLE — Brand tokens
+   The official type system (Chestuh Sans + Chestuh Script + IBM Plex)
+   and the documented brand palette. Used by landing/hall/dome BRAND
+   variants. Older files still use shared/tokens.css. */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap');
+
+/* Chestuh Sans removed — the OTF was missing accented glyphs (é, è, à…).
+   Default display = Archivo 800 (full FR support). Pages may override
+   --f-display with another web-safe Google Font. Chestuh Script is kept
+   for small decorative em accents only — never headlines or body. */
+@font-face {
+  font-family: "Chestuh Script";
+  src: url("../assets/Chestuh-Script.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* ── Brand palette — documented values ───────────────── */
+  --c-teal:        #86BBB6;   /* sarcelle */
+  --c-teal-deep:   #3a8a91;
+  --c-teal-soft:   #c8dedb;
+
+  --c-lavender:    #c5c1de;   /* chardon / thistle */
+  --c-lavender-mid:#a094c2;
+  --c-lavender-soft:#e2dfee;
+
+  --c-plum:        #8e4b75;   /* prune */
+  --c-plum-deep:   #5e2a4d;
+  --c-plum-soft:   #c89dba;
+
+  --c-denim:       #8aa6c8;   /* denim blue */
+  --c-denim-deep:  #4a6a8e;
+  --c-denim-soft:  #b9cadd;
+
+  --c-onyx:        #0e0f12;
+  --c-ink:         #14171f;
+  --c-ink-2:       #2a2d36;
+  --c-meta:        #5e6068;
+
+  --c-paper:       #f4efe5;
+  --c-paper-2:     #ebe5d6;
+  --c-paper-3:     #ddd5c2;
+
+  /* ── Type stacks ─────────────────────────────────────── */
+  --f-display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --f-display-weight: 800;
+  --f-script:  "Chestuh Script", "Caveat", cursive;
+  --f-script-scale: 0.72;           /* em-relative size for script accents */
+  --f-sans:    "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --f-mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --f-serif:   "Fraunces", "Times New Roman", serif;
+
+  /* ── Default accent — pages override per-witness ─────── */
+  --accent:        var(--c-plum);
+  --accent-deep:   var(--c-plum-deep);
+  --accent-soft:   var(--c-plum-soft);
+
+  /* ── Brand gradient — used on the landing background ─── */
+  /* mauve haut → lavender → teal → denim → peach pâle bas */
+  --grad-1: #b6a8c8;    /* lavender deep */
+  --grad-2: #c5c1de;    /* lavender */
+  --grad-3: #aac7c2;    /* teal-lavender mix */
+  --grad-4: #cabdd0;    /* plum tint */
+  --grad-5: #e8d5c2;    /* warm peach */
+  --grad-6: #f4efe5;    /* paper */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  font-family: var(--f-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+::selection { background: var(--c-ink); color: var(--c-paper); }
+
+/* Bilingual visibility — set [data-lang] on <html> */
+html[data-lang="fr"] [data-lang="en"],
+html[data-lang="en"] [data-lang="fr"] { display: none !important; }
+
+/* Reduced motion — universal floor */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
