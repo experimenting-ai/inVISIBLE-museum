@@ -1,0 +1,1150 @@
+<!doctype html>
+<html data-lang="fr" data-grad="collee">
+<head>
+<meta charset="utf-8">
+<title>/inVISIBLE — Landing · gradient organique (collé)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="shared/brand.css">
+<style id="type-variant">
+  /* V5b — IBM PLEX SANS 700 « plus gras » + CHESTUH SCRIPT 1.25em
+     IBM Plex Sans plafonne à 700 chez Google Fonts. Pour ajouter du poids
+     visuel sans changer de famille on combine :
+      · tracking plus serré (-0.055em)
+      · text-stroke 0.5px qui épaissit légèrement les pleins
+      · Chestuh Script remonté à 1.25em pour vraiment péser. */
+  :root {
+    --f-display: "IBM Plex Sans", "Helvetica Neue", Helvetica, sans-serif;
+    --f-script:  "Chestuh Script", "Caveat", cursive;
+  }
+  html .hero-title, html .editorial h2, html .domes-head h2, html .palette-strip h3, html .dome-tile .ttl .nm {
+    font-weight: 700;
+    letter-spacing: -0.055em;
+    line-height: 0.92;
+    -webkit-text-stroke: 0.5px currentColor;
+    text-stroke: 0.5px currentColor;
+    paint-order: stroke fill;
+  }
+  html .hero-title em, html .editorial h2 em, html .domes-head h2 em, html .palette-strip h3 em, html .dome-tile .ttl .nm em {
+    font-family: "Chestuh Script", cursive;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.25em;
+    letter-spacing: 0;
+    vertical-align: 0.04em;
+    line-height: 0.85;
+    color: var(--c-ink);
+    /* Chestuh n'a pas de bold natif — on l'épaissit via text-stroke +
+       paint-order. 0.85px = +30% perceptual weight sans déformer le tracé. */
+    -webkit-text-stroke: 1.3px currentColor;
+    text-stroke: 1.3px currentColor;
+    paint-order: stroke fill;
+  }
+  html .explore h2 { font-weight: 700; letter-spacing: -0.06em; -webkit-text-stroke: 0.75px currentColor; }
+</style>
+<style>
+  /* ═══════════════════════════════════════════════════════
+     LANDING — direction officielle MARQUE
+     Chestuh Sans + Script · IBM Plex Sans · IBM Plex Mono
+     Palette documentée (teal, lavender, plum, denim).
+     Gradient illustré : lavender haut → teal-lavender →
+     plum-mid → peach pâle → papier.
+     ═══════════════════════════════════════════════════════ */
+  :root {
+    --ink:    var(--c-ink);
+    --ink-2:  var(--c-ink-2);
+    --paper:  var(--c-paper);
+    --paper-2: var(--c-paper-2);
+    --meta:   var(--c-meta);
+    --line:   rgba(14,15,18, 0.18);
+    --line-2: rgba(14,15,18, 0.10);
+    --accent: var(--c-plum);
+    --focus:  var(--c-plum);
+  }
+
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     BRAND GRADIENT — couleurs collées, formes organiques
+     Inspiration : peinture mate type ref-4 — les quatre
+     teintes brand juxtaposées (pas séparées par du paper),
+     déformées par feTurbulence pour casser le cercle.
+     Trois densités exposées en Tweaks : soft / collée / dense.
+     ═══════════════════════════════════════════════════════ */
+  :root {
+    /* Variantes — overridables via data-grad sur <html> */
+    --g-a-plum: 0.92;
+    --g-a-teal: 0.90;
+    --g-a-denim: 0.86;
+    --g-a-lav: 0.88;
+    --g-a-peach: 0.55;
+    --g-edge: 0.20;       /* alpha minimum aux bords — empêche le retour au paper */
+    --g-stop1: 38%;
+    --g-stop2: 70%;
+    --g-height: 2600px;
+    --g-warp-scale: 24;   /* amplitude du déplacement SVG (px) */
+  }
+
+  /* Dense — encore plus saturé, transitions plus serrées */
+  html[data-grad="dense"] {
+    --g-a-plum: 0.98;
+    --g-a-teal: 0.96;
+    --g-a-denim: 0.94;
+    --g-a-lav: 0.95;
+    --g-a-peach: 0.70;
+    --g-edge: 0.32;
+    --g-stop1: 44%;
+    --g-stop2: 76%;
+    --g-warp-scale: 32;
+  }
+
+  /* Le champ chromatique — quatre teintes brand collées dans des nuages.
+     Chaque blob garde une présence (alpha >0) jusqu'aux limites pour que
+     les couleurs se touchent, pas qu'elles dérivent dans le paper. */
+  body::before {
+    content: ""; position: absolute;
+    /* Ancré top page — comme la landing 01 originale.
+       Overshoot horizontal pour absorber le déplacement de feTurbulence
+       en bord gauche/droit (pas de bande de papier visible).
+       Le bas est un edge net : quand on scrolle, on sort de la zone
+       chromatique et on entre dans la zone papier de la page. */
+    top: 0; left: -8vw; right: -8vw;
+    height: var(--g-height);
+    background:
+      /* lavender — nord-ouest, grand nuage */
+      radial-gradient(ellipse 78% 62% at 12% 8%,
+        rgba(176, 168, 208, var(--g-a-lav)) 0%,
+        rgba(176, 168, 208, calc(var(--g-a-lav) * 0.55)) var(--g-stop1),
+        rgba(176, 168, 208, var(--g-edge)) var(--g-stop2),
+        transparent 92%),
+      /* teal — nord-est, étiré */
+      radial-gradient(ellipse 72% 58% at 92% 14%,
+        rgba(134, 187, 182, var(--g-a-teal)) 0%,
+        rgba(134, 187, 182, calc(var(--g-a-teal) * 0.50)) var(--g-stop1),
+        rgba(134, 187, 182, var(--g-edge)) var(--g-stop2),
+        transparent 92%),
+      /* plum — sud-ouest, profond */
+      radial-gradient(ellipse 68% 60% at 18% 62%,
+        rgba(142, 75, 117, var(--g-a-plum)) 0%,
+        rgba(142, 75, 117, calc(var(--g-a-plum) * 0.45)) var(--g-stop1),
+        rgba(142, 75, 117, calc(var(--g-edge) * 0.85)) var(--g-stop2),
+        transparent 92%),
+      /* denim — sud-est */
+      radial-gradient(ellipse 70% 60% at 88% 70%,
+        rgba(138, 166, 200, var(--g-a-denim)) 0%,
+        rgba(138, 166, 200, calc(var(--g-a-denim) * 0.50)) var(--g-stop1),
+        rgba(138, 166, 200, var(--g-edge)) var(--g-stop2),
+        transparent 92%),
+      /* peach pâle — charnière chromatique */
+      radial-gradient(ellipse 55% 45% at 50% 82%,
+        rgba(232, 213, 194, var(--g-a-peach)) 0%,
+        rgba(232, 213, 194, calc(var(--g-a-peach) * 0.45)) 55%,
+        transparent 88%),
+      /* plancher chromatique OPAQUE — toute la zone du dégradé est
+         couverte de couleur. Le filtre feDisplacementMap peut creuser
+         des trous d'à ~28px ; ce plancher garantit que rien ne laisse
+         passer le papier en bord de viewport. */
+      linear-gradient(180deg,
+        rgb(197, 193, 222) 0%,
+        rgb(207, 197, 215) 30%,
+        rgb(225, 210, 200) 70%,
+        rgb(232, 213, 194) 100%);
+    z-index: 0; pointer-events: none;
+    filter: url(#warp-collee) saturate(1.06);
+    /* Fade vers paper UNIQUEMENT au bas de la zone — la transition
+       chromatique → beige paper doit être douce, pas un edge net.
+       Sides + top restent opaques (overshoot horizontal -8vw absorbe
+       le déplacement feTurbulence ; le mask ne touche pas les bords). */
+    -webkit-mask-image: linear-gradient(180deg,
+      #000 0%, #000 72%,
+      rgba(0,0,0, 0.85) 84%,
+      rgba(0,0,0, 0.45) 93%,
+      transparent 100%);
+            mask-image: linear-gradient(180deg,
+      #000 0%, #000 72%,
+      rgba(0,0,0, 0.85) 84%,
+      rgba(0,0,0, 0.45) 93%,
+      transparent 100%);
+  }
+  html[data-grad="dense"] body::before { filter: url(#warp-dense) saturate(1.10); }
+
+  /* ─── TACHE ──────────────────────────────────────────
+     SEULE variante avec mask radial : nuage localisé dérivant
+     lentement. Forme différente à chaque chargement (seed random).
+     ──────────────────────────────────────────────────── */
+  html[data-grad="tache"] body::before {
+    position: absolute; top: 0; left: -8vw; right: -8vw;
+    height: 1100px;
+    background:
+      radial-gradient(ellipse 30% 36% at 16% 30%,
+        rgba(176, 168, 208, 0.92) 0%,
+        rgba(176, 168, 208, 0.45) 40%,
+        transparent 78%),
+      radial-gradient(ellipse 28% 34% at 36% 28%,
+        rgba(134, 187, 182, 0.92) 0%,
+        rgba(134, 187, 182, 0.42) 40%,
+        transparent 78%),
+      radial-gradient(ellipse 30% 36% at 22% 50%,
+        rgba(142, 75, 117, 0.96) 0%,
+        rgba(142, 75, 117, 0.42) 40%,
+        transparent 78%),
+      radial-gradient(ellipse 28% 34% at 40% 46%,
+        rgba(138, 166, 200, 0.88) 0%,
+        rgba(138, 166, 200, 0.40) 40%,
+        transparent 78%);
+    filter: url(#warp-tache) saturate(1.10);
+    -webkit-mask-image: radial-gradient(ellipse calc(40% * var(--tache-size, 1)) calc(45% * var(--tache-size, 1)) at 28% 38%,
+      #000 0%, #000 32%, rgba(0,0,0, 0.55) 62%, transparent 92%);
+            mask-image: radial-gradient(ellipse calc(40% * var(--tache-size, 1)) calc(45% * var(--tache-size, 1)) at 28% 38%,
+      #000 0%, #000 32%, rgba(0,0,0, 0.55) 62%, transparent 92%);
+    animation: tache-drift 42s ease-in-out infinite alternate;
+  }
+  @keyframes tache-drift {
+    0%   { transform: translate3d(0, 0, 0)        scale(1); }
+    33%  { transform: translate3d(1.4%, -0.6%, 0) scale(1.04); }
+    66%  { transform: translate3d(-0.8%, 1.2%, 0) scale(0.97); }
+    100% { transform: translate3d(0.6%, -0.2%, 0) scale(1.02); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html[data-grad="tache"] body::before { animation: none; }
+  }
+  /* Le fond paper reste lisible sous tout */
+  html { background: var(--c-paper); }
+
+  /* Couche grain — papier mat, garde le rendu pictural */
+  body::after {
+    content: ""; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.65'/></svg>");
+    mix-blend-mode: multiply;
+    opacity: 0.07;
+    pointer-events: none;
+    z-index: 200;
+  }
+  main { position: relative; z-index: 1; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 4px;
+  }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 36px;
+    background: linear-gradient(180deg, rgba(197,193,222, 0.65), rgba(197,193,222, 0));
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    height: 28px; width: auto;
+    image-rendering: -webkit-optimize-contrast;
+  }
+  .nav-right { display: flex; align-items: center; gap: 22px; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-2); opacity: 0.75;
+    min-height: 44px; display: inline-flex; align-items: center;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .lang-pill {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); border-radius: 999px; overflow: hidden;
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em;
+    background: rgba(244,239,229, 0.6);
+  }
+  .lang-pill button {
+    padding: 0 12px; min-height: 36px; min-width: 44px; color: var(--meta);
+  }
+  .lang-pill button[aria-pressed="true"] {
+    background: var(--ink); color: var(--paper);
+  }
+
+  /* ═══════ HERO ═══════ */
+  .hero {
+    padding: 40px 36px 100px;
+    max-width: 1440px; margin: 0 auto;
+    display: grid; gap: 56px;
+  }
+  .hero-eyebrow {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-2);
+    gap: 24px; flex-wrap: wrap;
+  }
+  .hero-eyebrow .left { display: inline-flex; gap: 16px; align-items: center; }
+  .hero-eyebrow .left .dash { width: 24px; height: 1px; background: currentColor; opacity: 0.5; }
+
+  .hero-title-row {
+    display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end;
+  }
+  @media (max-width: 1000px) { .hero-title-row { grid-template-columns: 1fr; } }
+  .hero-title {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: clamp(80px, 12vw, 200px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .hero-title em {
+    font-family: var(--f-script);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: 0;
+  }
+  .hero-side {
+    max-width: 320px;
+    display: grid; gap: 18px;
+    padding-bottom: 12px;
+  }
+  .hero-side p {
+    font-family: var(--f-sans); font-weight: 300;
+    font-size: 17px;
+    line-height: 1.55; color: var(--ink-2);
+  }
+  .hero-meta {
+    display: inline-flex; gap: 12px; flex-wrap: wrap;
+    font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: 0.18em; color: var(--meta);
+  }
+
+  /* ─── The element-frame hero ─── */
+  .element-frame {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    box-shadow:
+      0 60px 100px -30px rgba(14,15,18, 0.35),
+      inset 0 0 0 1px rgba(14,15,18, 0.10);
+  }
+  .element-frame .img {
+    position: absolute; inset: 0;
+    background: url("assets/aurora-cave.jpg") center 38% / cover;
+    filter: saturate(1.04);
+    transition: transform 1.2s ease;
+  }
+  .element-frame:hover .img { transform: scale(1.02); }
+  .element-frame .label {
+    position: absolute; left: 20px; bottom: 20px; z-index: 3;
+    display: grid; gap: 4px;
+    color: var(--paper);
+    text-shadow: 0 1px 24px rgba(0,0,0,0.65);
+  }
+  .element-frame .label .eye {
+    font-family: var(--f-mono); font-size: 10px;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    opacity: 0.88;
+  }
+  .element-frame .label .name {
+    font-family: var(--f-display); font-weight: 400;
+    font-size: 26px; letter-spacing: -0.01em;
+  }
+  .element-frame .actions {
+    position: absolute; top: 18px; right: 18px; z-index: 3;
+    display: inline-flex; gap: 10px;
+  }
+  .icon-pill {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(244,239,229, 0.92);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(14,15,18, 0.10);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--ink);
+  }
+  .icon-pill svg { width: 16px; height: 16px; }
+  .icon-pill:hover { background: var(--paper); }
+  .element-frame .scroll-cue {
+    position: absolute; left: 18px; top: 18px; z-index: 3;
+    font-family: var(--f-mono);
+    font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--paper); opacity: 0.85;
+    background: rgba(14,15,18, 0.4);
+    backdrop-filter: blur(6px);
+    padding: 6px 12px; border-radius: 99px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .element-frame .scroll-cue::before { content: "↓"; font-family: var(--f-mono); font-size: 12px; }
+
+  /* ─── CTA row ─── */
+  .cta-row {
+    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 0 28px; min-height: 60px;
+    border-radius: 999px;
+    font-family: var(--f-sans); font-weight: 500;
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: pointer;
+    transition: transform .25s, box-shadow .25s;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--ink); color: var(--paper);
+    box-shadow: 0 18px 50px -14px rgba(14,15,18, 0.55);
+  }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-ghost {
+    background: rgba(244,239,229, 0.4);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    backdrop-filter: blur(6px);
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+  .protect-pill {
+    margin-left: auto;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 0 18px; min-height: 44px;
+    background: rgba(244,239,229, 0.55);
+    border: 1px solid rgba(14,15,18, 0.18);
+    border-radius: 999px;
+    font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink);
+    backdrop-filter: blur(6px);
+  }
+  .protect-pill:hover { border-color: var(--ink); }
+  .protect-pill svg { width: 13px; height: 13px; }
+
+  /* ═══════ MARQUEE ═══════ */
+  .marquee-band {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: rgba(244,239,229, 0.35);
+    overflow: hidden;
+    padding: 14px 0;
+  }
+  .marquee {
+    display: flex; gap: 64px;
+    font-family: var(--f-mono);
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--ink-2);
+    white-space: nowrap;
+    animation: m 38s linear infinite;
+  }
+  @keyframes m { to { transform: translateX(-50%); } }
+  .marquee span { display: inline-flex; align-items: center; gap: 18px; }
+  .marquee b { color: var(--accent); font-weight: 500; }
+
+  /* ═══════ EDITORIAL ═══════ */
+  .editorial {
+    padding: 140px 36px 100px;
+    max-width: 1440px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start;
+  }
+  @media (max-width: 1000px) { .editorial { grid-template-columns: 1fr; gap: 48px; } }
+  .editorial h2 {
+    font-family: var(--f-display); font-weight: 400;
+    font-size: clamp(56px, 7vw, 110px);
+    line-height: 0.95; letter-spacing: -0.02em;
+    color: var(--ink); text-wrap: balance;
+  }
+  .editorial h2 em { font-family: var(--f-script); font-weight: 400; color: var(--c-ink); letter-spacing: 0; }
+  .editorial-body { display: grid; gap: 22px; max-width: 52ch; padding-top: 12px; }
+  .editorial-body p {
+    font-family: var(--f-sans); font-weight: 300;
+    font-size: 17px; line-height: 1.75; color: var(--ink-2);
+  }
+  .editorial-body p strong { color: var(--ink); font-weight: 500; }
+  .editorial-body .sig {
+    margin-top: 12px;
+    font-family: var(--f-script); font-style: italic;
+    font-size: 30px; color: var(--accent); line-height: 1;
+  }
+
+  /* ═══════ DOME PORTALS ═══════ */
+  .domes {
+    padding: 80px 36px 120px;
+    max-width: 1440px; margin: 0 auto;
+  }
+  .domes-head {
+    display: flex; align-items: end; justify-content: space-between; gap: 40px; flex-wrap: wrap;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .domes-head h2 {
+    font-family: var(--f-display); font-weight: 400;
+    font-size: clamp(56px, 7vw, 96px);
+    line-height: 0.95; letter-spacing: -0.02em;
+    color: var(--ink); max-width: 14ch; text-wrap: balance;
+  }
+  .domes-head h2 em { font-family: var(--f-script); font-weight: 400; color: var(--c-ink); letter-spacing: 0; }
+  .domes-head .meta {
+    font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: 0.2em; color: var(--meta);
+    text-align: right; display: grid; gap: 4px;
+  }
+  .domes-head .meta b { color: var(--ink); font-weight: 500; }
+
+  .domes-grid {
+    margin-top: 56px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px;
+  }
+  @media (max-width: 1000px) { .domes-grid { grid-template-columns: 1fr; gap: 60px; } }
+
+  .dome-card {
+    display: grid; gap: 22px; text-decoration: none; color: inherit;
+    transition: transform .35s;
+  }
+  .dome-card:hover { transform: translateY(-6px); }
+
+  .dome-tile {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    max-height: 580px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(14,15,18, 0.40);
+    background: var(--ink);
+  }
+  .dome-tile .ph { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform .8s ease; }
+  .dome-card:hover .dome-tile .ph { transform: scale(1.04); }
+  .dome-card.k-1 .ph { background-image: url("assets/artefact-1.jpg"); }   /* face cracked — major depression */
+  .dome-card.k-2 .ph { background-image: url("assets/artefact-5.jpg"); }   /* head scream — anxiety */
+  .dome-card.k-3 .ph { background-image: url("assets/artefact-2.jpg"); }   /* black hole face — PTSD */
+  .dome-tile::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.85) 100%);
+  }
+  .dome-icon {
+    position: absolute; top: 16px; left: 16px; z-index: 2;
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    box-shadow: 0 8px 18px -6px rgba(0,0,0,0.5);
+  }
+  .dome-tag {
+    position: absolute; top: 16px; right: 16px; left: 64px;
+    z-index: 2;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(244,239,229,0.92);
+    backdrop-filter: blur(6px);
+    padding: 7px 12px; border-radius: 8px;
+    font-family: var(--f-mono); font-size: 9px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+    max-width: max-content;
+  }
+  .dome-tile .play {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(244,239,229,0.92);
+    backdrop-filter: blur(8px);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--ink);
+    opacity: 0; transition: opacity .3s, transform .3s;
+  }
+  .dome-card:hover .play { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+  .dome-tile .play svg { width: 18px; height: 18px; }
+
+  .dome-tile .ttl {
+    position: absolute; left: 20px; bottom: 24px; right: 20px;
+    z-index: 2; color: var(--paper);
+    display: grid; gap: 8px;
+  }
+  .dome-tile .ttl .num {
+    font-family: var(--f-mono); font-size: 10px;
+    letter-spacing: 0.28em; opacity: 0.82;
+  }
+  .dome-tile .ttl .nm {
+    font-family: var(--f-display); font-weight: 400;
+    font-size: 42px; line-height: 0.95; letter-spacing: -0.018em;
+  }
+  .dome-tile .ttl .nm em { font-family: var(--f-script); font-weight: 400; letter-spacing: 0; }
+
+  .dome-meta { padding: 0 4px; display: grid; gap: 10px; }
+  .dome-cond {
+    font-family: var(--f-mono); font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .dome-card.k-1 .dome-cond { color: var(--c-plum-deep); }
+  .dome-card.k-2 .dome-cond { color: var(--c-denim-deep); }
+  .dome-card.k-3 .dome-cond { color: var(--c-teal-deep); }
+  .dome-desc {
+    font-family: var(--f-sans); font-weight: 300;
+    font-size: 15px; line-height: 1.5;
+    color: var(--ink-2); max-width: 36ch;
+  }
+  .dome-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-2);
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em;
+    color: var(--meta); text-transform: uppercase;
+  }
+  .dome-foot .enter { color: var(--ink); }
+  .dome-card.k-1:hover .enter { color: var(--c-plum-deep); }
+  .dome-card.k-2:hover .enter { color: var(--c-denim-deep); }
+  .dome-card.k-3:hover .enter { color: var(--c-teal-deep); }
+
+  /* ═══════ PALETTE STRIP ═══════ */
+  .palette-strip {
+    padding: 80px 36px 60px;
+    max-width: 1440px; margin: 0 auto;
+    border-top: 1px solid var(--line);
+    display: grid; gap: 40px;
+  }
+  .palette-strip h3 {
+    font-family: var(--f-display); font-weight: 400;
+    font-size: clamp(28px, 3vw, 42px);
+    letter-spacing: -0.018em;
+    color: var(--ink); max-width: 24ch;
+    line-height: 1.1;
+  }
+  .palette-strip h3 em { font-family: var(--f-script); color: var(--c-ink); }
+  .palette-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+  }
+  @media (max-width: 720px) { .palette-grid { grid-template-columns: 1fr 1fr; } }
+  .swatch {
+    background: var(--paper-2);
+    border: 1px solid var(--line-2);
+    border-radius: 14px;
+    padding: 24px 22px;
+    display: grid; gap: 14px;
+    text-decoration: none; color: inherit;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+  }
+  .swatch:hover { transform: translateY(-4px); border-color: var(--ink); box-shadow: 0 18px 40px -16px rgba(14,15,18, 0.30); }
+  .swatch img { width: 56px; height: 56px; border-radius: 12px; }
+  .swatch .nm {
+    font-family: var(--f-mono); font-size: 11px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--ink); font-weight: 500;
+  }
+  .swatch .hex {
+    font-family: var(--f-mono); font-size: 10px;
+    color: var(--meta); letter-spacing: 0.12em;
+  }
+
+  /* ═══════ EXPLORE STRIP ═══════ */
+  .explore {
+    padding: 60px 36px 100px;
+    max-width: 1440px; margin: 0 auto;
+    container-type: inline-size;
+  }
+  .explore h2 {
+    font-family: var(--f-display); font-weight: 400;
+    font-size: clamp(80px, 18cqi, 250px);
+    line-height: 0.85; letter-spacing: -0.05em;
+    color: var(--ink);
+    text-wrap: nowrap;
+    overflow: hidden;
+  }
+  .explore p {
+    margin-top: 18px;
+    font-family: var(--f-script); font-style: italic;
+    font-size: 24px; line-height: 1.4;
+    color: var(--ink-2); max-width: 56ch;
+  }
+
+  /* ═══════ FOOTER ═══════ */
+  .foot {
+    background: var(--ink); color: var(--paper);
+    padding: 80px 36px 28px;
+  }
+  .foot-grid {
+    max-width: 1440px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(244,239,229,0.16);
+  }
+  @media (max-width: 900px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+  .foot-logo { height: 56px; width: auto; }
+  .foot-meta { margin-top: 22px; font-family: var(--f-script); font-style: italic; font-size: 18px; color: rgba(244,239,229,0.78); line-height: 1.45; max-width: 36ch; }
+  .foot-col h5 { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(244,239,229,0.55); margin-bottom: 14px; font-weight: 500; }
+  .foot-col ul { list-style: none; display: grid; gap: 8px; font-size: 14px; padding: 0; font-family: var(--f-sans); font-weight: 400; }
+  .foot-col a { color: var(--paper); opacity: 0.86; }
+  .foot-col a:hover { color: var(--c-teal); opacity: 1; }
+  .colophon {
+    max-width: 1440px; margin: 0 auto; padding-top: 22px;
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(244,239,229,0.5);
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG filters — déforme les radial-gradients en formes organiques (cf. ref-4).
+     feTurbulence génère un bruit fractal, feDisplacementMap déplace les pixels
+     du fond selon ce bruit → les ellipses se cassent en nuages picturaux.
+     `scale` n'accepte pas var(), donc 3 filtres séparés.
+     Le `seed` de chaque feTurbulence est randomisé à l'init (cf. <script>
+     plus bas) pour que la forme soit différente à chaque visite. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="warp-collee" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves="2" seed="7" stitchTiles="stitch" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="28" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="warp-tache" x="-15%" y="-15%" width="130%" height="130%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.022" numOctaves="3" seed="31" stitchTiles="stitch" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="48" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="warp-dense" x="-12%" y="-12%" width="124%" height="124%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.010 0.016" numOctaves="3" seed="11" stitchTiles="stitch" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- Tweaks panel — densité du dégradé -->
+<aside id="grad-tweaks" aria-label="Tweaks dégradé">
+  <header>
+    <span class="mono">Dégradé · Tweaks</span>
+    <button type="button" id="grad-close" aria-label="Fermer">×</button>
+  </header>
+  <div class="row">
+    <label class="mono">Variante</label>
+    <div class="seg" role="tablist">
+      <button type="button" data-grad-set="collee" role="tab" aria-selected="true">Collée ★</button>
+      <button type="button" data-grad-set="tache"  role="tab">Tache</button>
+      <button type="button" data-grad-set="dense"  role="tab">Dense</button>
+    </div>
+  </div>
+  <div class="row tache-size" hidden>
+    <label class="mono">Taille de la tache</label>
+    <div class="seg" role="tablist">
+      <button type="button" data-tache-size="0.7" role="tab">S</button>
+      <button type="button" data-tache-size="1"   role="tab" aria-selected="true">M</button>
+      <button type="button" data-tache-size="1.4" role="tab">L</button>
+      <button type="button" data-tache-size="1.9" role="tab">XL</button>
+    </div>
+  </div>
+  <p class="mono note">
+    <b>Collée</b> = champ chromatique sur tout le haut.
+    <b>Tache</b> = nuage localisé, dérive lente, forme unique à chaque chargement.
+    <b>Dense</b> = bascules / sas.
+  </p>
+</aside>
+
+<style>
+  /* Tweaks panel (local, pas dépendant de tweaks-panel.jsx) */
+  #grad-tweaks {
+    position: fixed; right: 18px; bottom: 18px;
+    z-index: 600;
+    background: rgba(244,239,229, 0.96);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(14,15,18, 0.18);
+    border-radius: 14px;
+    padding: 14px 16px 12px;
+    width: 280px;
+    box-shadow: 0 26px 60px -22px rgba(14,15,18, 0.4);
+    font-family: var(--f-mono);
+    display: none;   /* hidden until host activates edit mode */
+  }
+  html.tweaks-on #grad-tweaks { display: block; }
+  #grad-tweaks header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--meta);
+  }
+  #grad-tweaks #grad-close {
+    background: none; border: 0; cursor: pointer; font-size: 18px; line-height: 1; color: var(--ink-2);
+    padding: 0 4px;
+  }
+  #grad-tweaks .row { display: grid; gap: 8px; }
+  #grad-tweaks label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--meta); }
+  #grad-tweaks .seg {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    background: rgba(14,15,18, 0.06); border-radius: 8px; padding: 2px;
+  }
+  #grad-tweaks .seg button {
+    border: 0; background: transparent; cursor: pointer; min-height: 32px;
+    font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    border-radius: 6px; color: var(--ink-2);
+  }
+  #grad-tweaks .seg button[aria-selected="true"] {
+    background: var(--ink); color: var(--paper);
+  }
+  #grad-tweaks .note {
+    margin-top: 12px; font-size: 10px; line-height: 1.55; color: var(--meta);
+    letter-spacing: 0.02em; text-transform: none;
+  }
+  #grad-tweaks .note b { color: var(--ink); }
+</style>
+
+<nav class="nav" aria-label="Navigation principale">
+  <a href="#" aria-label="Accueil /inVISIBLE">
+    <img class="nav-logo" src="assets/logo-black.png" alt="/inVISIBLE">
+  </a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#manifeste"><span data-lang="fr">Le projet</span><span data-lang="en">The project</span></a>
+      <a href="#domes"><span data-lang="fr">Les dômes</span><span data-lang="en">The domes</span></a>
+      <a href="#palette"><span data-lang="fr">Palette</span><span data-lang="en">Palette</span></a>
+      <a href="#"><span data-lang="fr">Crédits</span><span data-lang="en">Credits</span></a>
+    </div>
+    <div class="lang-pill" data-lang-toggle>
+      <button data-lang="fr" aria-pressed="true">FR</button><button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ─── HERO ─── -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-eyebrow">
+    <span class="left">
+      <span><span data-lang="fr">Musée numérique de la santé mentale</span><span data-lang="en">Digital mental-health museum</span></span>
+      <span class="dash" aria-hidden="true"></span>
+      <span><span data-lang="fr">42 min · 91 artefacts · WCAG 2.2 AA</span><span data-lang="en">42 min · 91 artefacts · WCAG 2.2 AA</span></span>
+    </span>
+    <span>MMXXVI · SAT × Douglas × Experimenting.ai</span>
+  </div>
+
+  <div class="hero-title-row">
+    <h1 class="hero-title" id="hero-title">
+      <span data-lang="fr">L'empreinte de nos <em>silences.</em></span>
+      <span data-lang="en">The imprint of our <em>silences.</em></span>
+    </h1>
+    <div class="hero-side">
+      <p>
+        <span data-lang="fr">Trois personnes ont confié, à voix basse, ce qu'elles n'avaient jamais dit. L'IA en a fait des paysages.</span>
+        <span data-lang="en">Three people quietly entrusted what they had never said. AI turned those into landscapes.</span>
+      </p>
+      <div class="hero-meta">
+        <span><span data-lang="fr">Salle</span><span data-lang="en">Room</span> 01/04</span>
+        <span>·</span>
+        <span><span data-lang="fr">Trois témoins</span><span data-lang="en">Three witnesses</span></span>
+      </div>
+    </div>
+  </div>
+
+  <figure class="element-frame">
+    <span class="scroll-cue">scroll</span>
+    <div class="actions">
+      <button class="icon-pill" aria-label="Élargir l'image">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9V3h6M21 9V3h-6M3 15v6h6M21 15v6h-6"/></svg>
+      </button>
+      <button class="icon-pill" aria-label="Marquer cet artefact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+      </button>
+    </div>
+    <div class="img" role="img" aria-label="Paysage AI — arbre lumineux dans la brume."></div>
+    <div class="label">
+      <span class="eye"><span data-lang="fr">Élément · Artefact IA</span><span data-lang="en">Element · AI artefact</span></span>
+      <span class="name">
+        <span data-lang="fr">« Arbre — <em>après le silence</em> »</span>
+        <span data-lang="en">"Tree — <em>after the silence</em>"</span>
+      </span>
+    </div>
+  </figure>
+
+  <div class="cta-row">
+    <a class="btn btn-primary" href="final-hall.html">
+      <span data-lang="fr">Entrer dans l'expérience</span><span data-lang="en">Enter the experience</span>
+      <span aria-hidden="true">→</span>
+    </a>
+    <a class="btn btn-ghost" href="#manifeste">
+      <span data-lang="fr">Lire la démarche</span><span data-lang="en">Read the approach</span>
+    </a>
+    <a class="protect-pill" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v6c0 4 3 7.5 7 9 4-1.5 7-5 7-9V6l-7-3z"/></svg>
+      <span data-lang="fr">Espace protégé</span><span data-lang="en">Protected space</span>
+    </a>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-band" aria-hidden="true">
+  <div class="marquee">
+    <span><b>·</b> <span data-lang="fr">Voix humaine, jamais clonée</span><span data-lang="en">Human voice, never cloned</span></span>
+    <span><b>·</b> <span data-lang="fr">Visages humains, jamais générés</span><span data-lang="en">Human faces, never generated</span></span>
+    <span><b>·</b> <span data-lang="fr">Noyaux thématiques anonymisés</span><span data-lang="en">Anonymized thematic kernels</span></span>
+    <span><b>·</b> <span data-lang="fr">Cadrage clinique Douglas</span><span data-lang="en">Clinical framing by Douglas</span></span>
+    <span><b>·</b> WCAG 2.2 AA</span>
+    <span><b>·</b> <span data-lang="fr">Espace protégé en tout temps</span><span data-lang="en">Protected space at all times</span></span>
+    <span><b>·</b> <span data-lang="fr">Voix humaine, jamais clonée</span><span data-lang="en">Human voice, never cloned</span></span>
+    <span><b>·</b> <span data-lang="fr">Visages humains, jamais générés</span><span data-lang="en">Human faces, never generated</span></span>
+    <span><b>·</b> <span data-lang="fr">Noyaux thématiques anonymisés</span><span data-lang="en">Anonymized thematic kernels</span></span>
+    <span><b>·</b> <span data-lang="fr">Cadrage clinique Douglas</span><span data-lang="en">Clinical framing by Douglas</span></span>
+    <span><b>·</b> WCAG 2.2 AA</span>
+    <span><b>·</b> <span data-lang="fr">Espace protégé en tout temps</span><span data-lang="en">Protected space at all times</span></span>
+  </div>
+</div>
+
+<!-- ─── EDITORIAL ─── -->
+<section class="editorial" id="manifeste" aria-labelledby="ed-title">
+  <h2 id="ed-title">
+    <span data-lang="fr">Trois noyaux,<br>traduits en <em>paysages.</em></span>
+    <span data-lang="en">Three kernels,<br>translated into <em>landscapes.</em></span>
+  </h2>
+  <div class="editorial-body">
+    <p>
+      <span data-lang="fr">Trois personnes nous ont confié, à voix basse, ce qu'elles n'avaient jamais dit. Nous n'avons jamais cherché à imiter leurs voix ou leurs visages. L'IA n'a reçu d'elles que des <strong>noyaux anonymisés</strong>, validés en clinique avec le Douglas.</span>
+      <span data-lang="en">Three people quietly entrusted what they had never said. We never sought to imitate their voices or faces. AI only received from them <strong>anonymized kernels</strong>, clinically validated with Douglas.</span>
+    </p>
+    <p>
+      <span data-lang="fr">De ces noyaux, l'IA tire des paysages, des sons, des poèmes — des artefacts. Ils ne sont jamais le témoignage. Ils sont une traduction. Un miroir étrange, parfois beau, parfois inconfortable, toujours <strong>cadré par la voix humaine</strong> qui l'accompagne.</span>
+      <span data-lang="en">From those kernels, AI draws landscapes, sounds, poems — artefacts. They are never the testimony. They are a translation. A strange mirror, sometimes beautiful, sometimes uncomfortable, always <strong>framed by the human voice</strong> that accompanies it.</span>
+    </p>
+    <p class="sig">
+      <span data-lang="fr">— L'équipe /inVISIBLE</span>
+      <span data-lang="en">— The /inVISIBLE team</span>
+    </p>
+  </div>
+</section>
+
+<!-- ─── DOMES ─── -->
+<section class="domes" id="domes" aria-labelledby="domes-title">
+  <header class="domes-head">
+    <h2 id="domes-title">
+      <span data-lang="fr">Trois <em>dômes.</em><br>Aucun ordre imposé.</span>
+      <span data-lang="en">Three <em>domes.</em><br>No imposed order.</span>
+    </h2>
+    <div class="meta">
+      <span><b>~ 9 min</b> <span data-lang="fr">par dôme</span><span data-lang="en">per dome</span></span>
+      <span>63 <span data-lang="fr">artefacts au total</span><span data-lang="en">artefacts total</span></span>
+      <span><span data-lang="fr">Chaque témoin · sa palette</span><span data-lang="en">Each witness · its palette</span></span>
+    </div>
+  </header>
+
+  <div class="domes-grid">
+    <a class="dome-card k-1" href="final-dome.html" aria-labelledby="d1-name">
+      <div class="dome-tile">
+        <img class="dome-icon" src="assets/icon-plum.png" alt="">
+        <span class="dome-tag"><span data-lang="fr">Dôme 01 · Plum</span><span data-lang="en">Dome 01 · Plum</span></span>
+        <div class="ph" role="img" aria-label="Dôme 01 — La Brume."></div>
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+        <div class="ttl">
+          <span class="num">01 — Léa — 9 min · 21 <span data-lang="fr">artefacts</span><span data-lang="en">artefacts</span></span>
+          <span class="nm" id="d1-name"><span data-lang="fr">La <em>Brume</em></span><span data-lang="en">The <em>Mist</em></span></span>
+        </div>
+      </div>
+      <div class="dome-meta">
+        <span class="dome-cond"><span data-lang="fr">Trouble dépressif majeur</span><span data-lang="en">Major depressive disorder</span></span>
+        <p class="dome-desc">
+          <span data-lang="fr">La disparition, la résistance, la réémergence — trois actes où l'effacement devient passage.</span>
+          <span data-lang="en">Vanishing, resistance, re-emergence — three acts where erasure becomes passage.</span>
+        </p>
+        <div class="dome-foot">
+          <span>HC.04.01</span>
+          <span class="enter"><span data-lang="fr">Entrer</span><span data-lang="en">Enter</span> →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="dome-card k-2" href="final-dome.html" aria-labelledby="d2-name">
+      <div class="dome-tile">
+        <img class="dome-icon" src="assets/icon-denim.png" alt="">
+        <span class="dome-tag"><span data-lang="fr">Dôme 02 · Denim</span><span data-lang="en">Dome 02 · Denim</span></span>
+        <div class="ph" role="img" aria-label="Dôme 02 — L'Étau."></div>
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+        <div class="ttl">
+          <span class="num">02 — Mateo — 9 min · 19 <span data-lang="fr">artefacts</span><span data-lang="en">artefacts</span></span>
+          <span class="nm" id="d2-name"><span data-lang="fr">L'<em>Étau</em></span><span data-lang="en">The <em>Vise</em></span></span>
+        </div>
+      </div>
+      <div class="dome-meta">
+        <span class="dome-cond"><span data-lang="fr">Trouble anxieux généralisé</span><span data-lang="en">Generalized anxiety disorder</span></span>
+        <p class="dome-desc">
+          <span data-lang="fr">La veille permanente. Confrontation, compréhension, résolution.</span>
+          <span data-lang="en">Constant vigilance. Confrontation, understanding, resolution.</span>
+        </p>
+        <div class="dome-foot">
+          <span>HC.04.02</span>
+          <span class="enter"><span data-lang="fr">Entrer</span><span data-lang="en">Enter</span> →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="dome-card k-3" href="final-dome.html" aria-labelledby="d3-name">
+      <div class="dome-tile">
+        <img class="dome-icon" src="assets/icon-teal.png" alt="">
+        <span class="dome-tag"><span data-lang="fr">Dôme 03 · Teal</span><span data-lang="en">Dome 03 · Teal</span></span>
+        <div class="ph" role="img" aria-label="Dôme 03 — La Crue."></div>
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+        <div class="ttl">
+          <span class="num">03 — Sam — 9 min · 23 <span data-lang="fr">artefacts</span><span data-lang="en">artefacts</span></span>
+          <span class="nm" id="d3-name"><span data-lang="fr">La <em>Crue</em></span><span data-lang="en">The <em>Surge</em></span></span>
+        </div>
+      </div>
+      <div class="dome-meta">
+        <span class="dome-cond"><span data-lang="fr">État de stress post-traumatique</span><span data-lang="en">Post-traumatic stress disorder</span></span>
+        <p class="dome-desc">
+          <span data-lang="fr">Habiter à nouveau le présent quand le passé revient sans prévenir.</span>
+          <span data-lang="en">Inhabit the present again when the past returns unannounced.</span>
+        </p>
+        <div class="dome-foot">
+          <span>HC.04.03</span>
+          <span class="enter"><span data-lang="fr">Entrer</span><span data-lang="en">Enter</span> →</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ─── PALETTE STRIP — brand icons surfaced ─── -->
+<section class="palette-strip" id="palette" aria-labelledby="palette-title">
+  <h3 id="palette-title">
+    <span data-lang="fr">Chaque témoin a sa <em>palette.</em><br>Chaque dôme, sa lumière.</span>
+    <span data-lang="en">Each witness has its <em>palette.</em><br>Each dome, its light.</span>
+  </h3>
+  <div class="palette-grid">
+    <a class="swatch" href="final-dome.html#plum">
+      <img src="assets/icon-plum.png" alt="">
+      <span class="nm">Plum</span>
+      <span class="hex">#8e4b75 · <span data-lang="fr">Dôme 01 · La Brume</span><span data-lang="en">Dome 01 · The Mist</span></span>
+    </a>
+    <a class="swatch" href="#">
+      <img src="assets/icon-denim.png" alt="">
+      <span class="nm">Denim</span>
+      <span class="hex">#8aa6c8 · <span data-lang="fr">Dôme 02 · L'Étau</span><span data-lang="en">Dome 02 · The Vise</span></span>
+    </a>
+    <a class="swatch" href="#">
+      <img src="assets/icon-teal.png" alt="">
+      <span class="nm">Teal</span>
+      <span class="hex">#86bbb6 · <span data-lang="fr">Dôme 03 · La Crue</span><span data-lang="en">Dome 03 · The Surge</span></span>
+    </a>
+    <a class="swatch" href="#">
+      <img src="assets/icon-lavender.png" alt="">
+      <span class="nm">Thistle</span>
+      <span class="hex">#c5c1de · <span data-lang="fr">Hall central · respiration</span><span data-lang="en">Central hall · breath</span></span>
+    </a>
+  </div>
+</section>
+
+<!-- ─── EXPLORE ─── -->
+<section class="explore" aria-label="Explorer">
+  <h2 aria-hidden="true">
+    <span data-lang="fr">EXPLORER.</span><span data-lang="en">EXPLORE.</span>
+  </h2>
+  <p>
+    <span data-lang="fr">Un tutoriel court, un mode accessible alternatif à l'immersion, la liste complète des ressources d'aide partenaires.</span>
+    <span data-lang="en">A short tutorial, an accessible mode alternative to immersion, the full list of partner help resources.</span>
+  </p>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-mark">
+      <img class="foot-logo" src="assets/logo-white.png" alt="/inVISIBLE">
+      <div class="foot-meta">
+        <span data-lang="fr">L'empreinte de nos silences.<br>Coproduction SAT × Douglas × Experimenting.ai.</span>
+        <span data-lang="en">The imprint of our silences.<br>A SAT × Douglas × Experimenting.ai co-production.</span>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h5><span data-lang="fr">Visiter</span><span data-lang="en">Visit</span></h5>
+      <ul>
+        <li><a href="final-hall.html"><span data-lang="fr">Entrer</span><span data-lang="en">Enter</span></a></li>
+        <li><a href="#"><span data-lang="fr">Mode accessible</span><span data-lang="en">Accessible mode</span></a></li>
+        <li><a href="#"><span data-lang="fr">Tutoriel</span><span data-lang="en">Tutorial</span></a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5><span data-lang="fr">Projet</span><span data-lang="en">Project</span></h5>
+      <ul>
+        <li><a href="#manifeste"><span data-lang="fr">Manifeste</span><span data-lang="en">Manifesto</span></a></li>
+        <li><a href="#"><span data-lang="fr">Démarche IA</span><span data-lang="en">AI process</span></a></li>
+        <li><a href="#"><span data-lang="fr">Crédits</span><span data-lang="en">Credits</span></a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5><span data-lang="fr">Soutien</span><span data-lang="en">Support</span></h5>
+      <ul>
+        <li><a href="tel:811">Info-Social 811</a></li>
+        <li><a href="#"><span data-lang="fr">Ressources d'aide</span><span data-lang="en">Help resources</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="colophon">
+    <span>© 2026 /inVISIBLE</span>
+    <span><span data-lang="fr">WCAG 2.2 AA · MMXXVI</span><span data-lang="en">WCAG 2.2 AA · MMXXVI</span></span>
+  </div>
+</footer>
+
+<script src="shared/i18n.js"></script>
+<script>
+  /* ─── Tweaks panel · densité du dégradé ─────────────────
+     Bouton « Tweaks » dans la barre d'outils → affiche le panneau.
+     Le choix est persisté côté host via __edit_mode_set_keys. */
+  (function() {
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "grad": "collee",
+      "tacheSize": 1.4
+    }/*EDITMODE-END*/;
+
+    const html = document.documentElement;
+    const panel = document.getElementById('grad-tweaks');
+    const seg = panel.querySelectorAll('[data-grad-set]');
+    const sizeRow = panel.querySelector('.tache-size');
+    const sizeSeg = panel.querySelectorAll('[data-tache-size]');
+    const closeBtn = document.getElementById('grad-close');
+
+    /* Randomise seed feTurbulence à chaque chargement → la tache (et le
+       champ collé) n'a jamais exactement la même forme. */
+    document.querySelectorAll('svg filter feTurbulence').forEach(t => {
+      t.setAttribute('seed', Math.floor(Math.random() * 1000));
+    });
+
+    function applySize(s) {
+      html.style.setProperty('--tache-size', String(s));
+      sizeSeg.forEach(b => b.setAttribute('aria-selected', parseFloat(b.dataset.tacheSize) === parseFloat(s) ? 'true' : 'false'));
+    }
+    function apply(grad) {
+      html.setAttribute('data-grad', grad);
+      seg.forEach(b => b.setAttribute('aria-selected', b.dataset.gradSet === grad ? 'true' : 'false'));
+      sizeRow.hidden = (grad !== 'tache');
+    }
+    apply(TWEAK_DEFAULTS.grad);
+    applySize(TWEAK_DEFAULTS.tacheSize);
+
+    seg.forEach(b => {
+      b.addEventListener('click', () => {
+        const v = b.dataset.gradSet;
+        apply(v);
+        try {
+          window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { grad: v } }, '*');
+        } catch (e) {}
+      });
+    });
+    sizeSeg.forEach(b => {
+      b.addEventListener('click', () => {
+        const s = parseFloat(b.dataset.tacheSize);
+        applySize(s);
+        try {
+          window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { tacheSize: s } }, '*');
+        } catch (e) {}
+      });
+    });
+
+    /* Host edit-mode integration — REGISTER listener BEFORE announcing. */
+    window.addEventListener('message', (ev) => {
+      const d = ev.data || {};
+      if (d.type === '__activate_edit_mode')   html.classList.add('tweaks-on');
+      if (d.type === '__deactivate_edit_mode') html.classList.remove('tweaks-on');
+    });
+    try {
+      window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    } catch (e) {}
+
+    closeBtn.addEventListener('click', () => {
+      html.classList.remove('tweaks-on');
+      try {
+        window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+      } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>
