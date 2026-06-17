@@ -1,0 +1,64 @@
+/* /inVISIBLE — shared tokens (fonts + neutrals)
+   Per-variation files own their own palette/composition. */
+
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Archivo:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap');
+
+:root {
+  /* Brand palette — sourced from moodboard */
+  --c-ink:      #0a0b0e;
+  --c-ink-2:    #14161c;
+  --c-paper:    #f6f4ef;
+  --c-paper-2:  #ebe9e2;
+
+  --c-blue:     #8aa6c8;
+  --c-lavender: #c5c1de;
+  --c-teal:     #7ec0bb;
+  --c-plum:     #8e4b75;
+
+  /* Default accent — override per-variation */
+  --accent:      var(--c-teal);
+  --accent-soft: oklch(78% 0.06 195 / 0.18);
+
+  /* Type stacks */
+  --f-sans:    "Helvetica Neue", Helvetica, "Inter", Arial, sans-serif;
+  --f-display: "Archivo", "Helvetica Neue", Helvetica, sans-serif;
+  --f-mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --f-script:  "Sacramento", "Caveat", cursive;
+  --f-serif:   "Fraunces", "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { font-family: var(--f-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+::selection { background: var(--c-ink); color: var(--c-paper); }
+
+/* Bilingual visibility — set [data-lang] on <html> */
+html[data-lang="fr"] [data-lang="en"],
+html[data-lang="en"] [data-lang="fr"] { display: none !important; }
+
+/* Brand wordmark — usable anywhere */
+.wm {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  font-family: var(--f-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+}
+.wm .wm-slash { font-weight: 500; padding-right: 0.04em; }
+.wm .wm-in {
+  font-family: var(--f-script);
+  font-weight: 400;
+  font-size: 0.95em;
+  transform: translateY(0.06em);
+  letter-spacing: 0;
+  padding: 0 0.02em;
+}
+.wm .wm-visible {
+  font-family: var(--f-display);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
