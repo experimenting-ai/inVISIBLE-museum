@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="/inVISIBLE : L'empreinte de nos silences — Hall Central « La Maison », hub de repos, de médiation et de choix.">
+  <title>Hall Central — La Maison — /inVISIBLE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="light">
+  <!-- ════════════════════════════════════════════════════════════════════
+       SKIP-LINK (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       NAV — STATIC (verbatim from _ref/PARTIALS.html). In normal flow:
+       it scrolls away with the page. Active link set by js/site.js.
+       ════════════════════════════════════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Accueil /inVISIBLE">
+        <img src="img/logo-onyx.png" alt="/inVISIBLE" class="nav-logo-img">
+        <span class="nav-logo-text">/inVISIBLE</span>
+      </a>
+      <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">ACCUEIL</a></li>
+        <li><a href="sas-in.html">EXPÉRIENCE</a></li>
+        <li><a href="projet.html">LE PROJET</a></li>
+        <li><a href="ressources.html">RESSOURCES</a></li>
+        <li><a href="accessibilite.html">ACCESSIBILITÉ</a></li>
+      </ul>
+      <div class="lang-toggle" role="group" aria-label="Choix de langue">
+        <button class="lang-btn lang-active" aria-pressed="true">FR</button>
+        <button class="lang-btn" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SVG warp filter for the organic gradient hero (referenced by .organic-hero-field) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="warp-collee" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves="2" seed="9" stitchTiles="stitch" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="32" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         ZONE 1 — ACCUEIL DU HALL : citation + respiration (V1 preserved copy)
+         Organic gradient hero (paper theme).
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="hall-hero organic-hero" id="zone-accueil" aria-labelledby="hall-hero-title">
+      <div class="organic-hero-field" aria-hidden="true"></div>
+      <div class="hall-hero-inner">
+        <span class="eyebrow">Hall Central · « La Maison »</span>
+        <h1 class="h-display" id="hall-hero-title">
+          Chaque espace que vous traverserez<br>est né d'un témoignage <em>réel.</em>
+        </h1>
+        <p class="lede">
+          Prenez le temps. Vous pouvez entrer, sortir ou faire pause à tout moment.
+        </p>
+
+        <!-- Exercice de respiration inline (wired par js/breathing.js).
+             Ancre #respiration : cible de navigation préservée depuis la V1. -->
+        <div class="hall-breathing-inline breathing-container" id="respiration">
+          <div class="breathing-circle-outer">
+            <div class="breathing-circle"></div>
+          </div>
+          <p class="breathing-label" aria-live="polite"></p>
+          <div class="breathing-controls">
+            <button class="btn-ghost breathing-start" type="button">Respirer</button>
+            <button class="btn-ghost breathing-stop" type="button" style="display:none;">Arrêter</button>
+          </div>
+        </div>
+      </div>
+      <p class="scroll-hint" aria-hidden="true">Défiler pour explorer</p>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         HC.1.1 — Vue d'ensemble : environnement visuel « La Maison »
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="hall-section" id="zone-vue-ensemble" aria-labelledby="vue-ensemble-title">
+      <header class="hall-section-head">
+        <span class="eyebrow">Vue d'ensemble · HC.1</span>
+        <h2 class="h-section" id="vue-ensemble-title">Un lieu de confort, au centre du parcours</h2>
+        <p class="lede">L'image dominante est un lieu de repos. Vous y revenez entre chaque dôme, à votre rythme.</p>
+      </header>
+
+      <article class="content-block" id="HC.1.1" data-content-id="HC.1.1" data-media="image">
+        <header class="cb-head">
+          <span class="cb-id">HC.1.1</span>
+          <span class="cb-section">Hall Central · Vue d'ensemble</span>
+        </header>
+        <h3 class="cb-title">Environnement visuel « La Maison »</h3>
+        <div class="ph ph-image" role="group" aria-label="Placeholder image — Environnement visuel La Maison">
+          <span class="ph-type">Image</span>
+          <p class="ph-desc">Environnement visuel « La Maison » (plan d'eau calme, forme organique, dégradés variants, nuages)</p>
+        </div>
+        <details class="cb-brief">
+          <summary>Intention éditoriale (grille V4)</summary>
+          <p class="cb-obj"><b>Objectif :</b> Espace central de repos, de médiation et de choix. Le contenu vidéo est privilégié sur le texte.</p>
+          <p class="cb-ton"><b>Ton &amp; style :</b> Ton apaisant, accueillant, protecteur. Textes courts et rares — le visuel et le son dominent. Le texte agit comme fil conducteur, sans surcharger. Vocabulaire simple et inclusif. Charge émotionnelle maîtrisée. L'espace invite à la pause — les textes soutiennent cette invitation en douceur.</p>
+        </details>
+      </article>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         ZONE 2 — VIDÉO & AUDIO : behind-the-scenes + ambiance sonore
+         HC.2.1 (vidéo processus) · HC.2.2 (trame sonore calme)
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="hall-section" id="zone-video" aria-labelledby="video-title">
+      <header class="hall-section-head">
+        <span class="eyebrow">Vidéo et audio · HC.2</span>
+        <h2 class="h-section" id="video-title">Le projet /inVISIBLE</h2>
+        <p class="lede">Découvrez la démarche et les personnes derrière l'expérience — au-delà de la condition.</p>
+      </header>
+
+      <article class="content-block" id="HC.2.1" data-content-id="HC.2.1" data-media="video">
+        <header class="cb-head">
+          <span class="cb-id">HC.2.1</span>
+          <span class="cb-section">Hall Central · Vidéo et audio</span>
+        </header>
+        <h3 class="cb-title">Vidéo du processus (behind-the-scenes)</h3>
+        <div class="ph ph-video" role="group" aria-label="Placeholder vidéo — Vidéo du processus behind-the-scenes">
+          <span class="ph-type">Vidéo</span>
+          <p class="ph-desc">1 vidéo du processus (behind-the-scenes) + sous-titres + transcription</p>
+        </div>
+        <details class="cb-brief">
+          <summary>Intention éditoriale (grille V4)</summary>
+          <p class="cb-obj"><b>Objectif :</b> Montrer le processus de co-création humain-IA. Humaniser les participants au-delà de leur condition.</p>
+          <p class="cb-ton"><b>Ton &amp; style :</b> Ton documentaire, humain, authentique. Sous-titres et transcription fidèles au verbatim. Résumé textuel alternatif (version accessible) : ~60-80 mots, sobre, factuel. Le texte accompagne sans commenter.</p>
+        </details>
+      </article>
+
+      <article class="content-block" id="HC.2.2" data-content-id="HC.2.2" data-media="audio">
+        <header class="cb-head">
+          <span class="cb-id">HC.2.2</span>
+          <span class="cb-section">Hall Central · Vidéo et audio</span>
+        </header>
+        <h3 class="cb-title">Trame sonore calme — ambiance du Hall</h3>
+        <div class="ph ph-audio" role="group" aria-label="Placeholder audio — Trame sonore calme ambiance du Hall">
+          <span class="ph-type">Audio</span>
+          <p class="ph-desc">1 trame sonore calme (style Weightless, Marconi Union)</p>
+        </div>
+        <details class="cb-brief">
+          <summary>Intention éditoriale (grille V4)</summary>
+          <p class="cb-obj"><b>Objectif :</b> Montrer le processus de co-création humain-IA. Humaniser les participants au-delà de leur condition.</p>
+          <p class="cb-ton"><b>Ton &amp; style :</b> Ton documentaire, humain, authentique. Sous-titres et transcription fidèles au verbatim. Résumé textuel alternatif (version accessible) : ~60-80 mots, sobre, factuel. Le texte accompagne sans commenter.</p>
+        </details>
+      </article>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         ZONE 3 — POINTS D'INTÉRÊT (immersive uniquement)
+         HC.3.1–3.3 (citations de retour au calme) · HC.3.4 (respiration interactive)
+         Retiré de la version allégée HTML (NA_227) — placeholders conservés
+         avec note. Le filet de sécurité HTML reste le bouton Espace protégé.
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="hall-section" id="zone-points-interet" aria-labelledby="points-interet-title">
+      <header class="hall-section-head">
+        <span class="eyebrow">Points d'intérêt · HC.3 · Immersive uniquement</span>
+        <h2 class="h-section" id="points-interet-title">Stations de calme</h2>
+        <p class="lede">Outils de régulation émotionnelle entre les dômes. En version web allégée, l'Espace protégé permanent assure ce filet de sécurité.</p>
+      </header>
+
+      <article class="content-block" id="HC.3.1" data-content-id="HC.3.1" data-media="text">
+        <header class="cb-head">
+          <span class="cb-id">HC.3.1</span>
+          <span class="cb-section">Hall Central · Points d'intérêt</span>
+        </header>
+        <h3 class="cb-title">Citation de retour au calme nº 1</h3>
+        <div class="ph ph-text" role="group" aria-label="Placeholder texte — Citation de retour au calme numéro 1">
+          <span class="ph-type">Texte</span>
+          <p class="ph-desc">Citation de retour au calme no 1 (texte typographié)</p>
+          <p class="ph-note">Immersive uniquement (NA_227) — retiré de la version allégée HTML. Le filet de sécurité émotionnelle en HTML est assuré par le bouton Espace protégé permanent (EP.1.1 + SO.2.1).</p>
+        </div>
+        <details class="cb-brief">
+          <summary>Intention éditoriale (grille V4)</summary>
+          <p class="cb-obj"><b>Objectif :</b> Offrir des outils de régulation émotionnelle entre les dômes. Permettre au visiteur de se recentrer.</p>
+          <p class="cb-ton"><b>Ton &amp; style :</b> Ton doux, guidant, méditatif. Citations : poétiques, universelles, non religieuses, ~30 mots. Exercice de respiration : instructions simples, rythme lent, phrases très courtes (≤ 15 mots). Écriture incarnée mais non intrusive.</p>
+        </details>
+      </article>
+
+      <article class="content-block" id="HC.3.2" data-content-id="HC.3.2" data-media="text">
+        <header class="cb-head">
+          <span class="cb-id">HC.3.2</span>
+          <span class="cb-section">Hall Central · Points d'intérêt</span>
+        </header>
+        <h3 class="cb-title">Citation de retour au calme nº 2</h3>
+        <div class="ph ph-text" role="group" aria-label="Placeholder texte — Citation de retour au calme numéro 2">
+          <span class="ph-type">Texte</span>
+          <p class="ph-desc">Citation de retour au calme no 2 (texte typographié)</p>
+          <p class="ph-note">Immersive uniquement (NA_227, décision 22 mai 2026).</p>
+        </div>
+        <details class="cb-brief">
+          <summary>Intention éditoriale (grille V4)</summary>
+          <p class="cb-obj"><b>Objectif :</b> Offrir des outils de régulation émotionnelle entre les dômes. Permettre au visiteur de se recentrer.</p>
+          <p class="cb-ton"><b>Ton &amp; style :</b> Ton doux, guidant, méditatif. Citations : poétiques, universelles, non religieuses, ~30 mots. Exercice de respiration : instructions simples, rythme lent, phrases très courtes (≤ 15 mots). Écriture incarnée mais non intrusive.</p>
+        </details>
+      </article>
+
+      <article class="content-block" id="HC.3.3" data-content-id="HC.3.3" data-media="text">
+        <header class="cb-head">
+          <span class="cb-id">HC.3.3</span>
+          <span class="cb-section">Hall Central · Points d'intérêt</span>
+        </header>
+        <h3 class="cb-title">Citation de retour au calme nº 3</h3>
+        <div class="ph ph-text" role="group" aria-label="Placeholder texte — Citation de retour au calme numéro 3">
+          <span class="ph-type">Texte</span>
+          <p class="ph-desc">Citation de retour au calme no 3 (texte typographié)</p>
+          <p class="ph-note">Immersive uniquement (NA_227, décision 22 mai 2026).</p>
+        </div>
+        <details class="cb-brief">
+          <summary>Intention éditoriale (grille V4)</summary>
+          <p class="cb-obj"><b>Objectif :</b> Offrir des outils de régulation émotionnelle entre les dômes. Permettre au visiteur de se recentrer.</p>
+          <p class="cb-ton"><b>Ton &amp; style :</b> Ton doux, guidant, méditatif. Citations : poétiques, universelles, non religieuses, ~30 mots. Exercice de respiration : instructions simples, rythme lent, phrases très courtes (≤ 15 mots). Écriture incarnée mais non intrusive.</p>
+        </details>
+      </article>
+
+      <article class="content-block" id="HC.3.4" data-content-id="HC.3.4" data-media="interactive">
+        <header class="cb-head">
+          <span class="cb-id">HC.3.4</span>
+          <span class="cb-section">Hall Central · Points d'intérêt</span>
+        </header>
+        <h3 class="cb-title">Exercice de respiration interactif</h3>
+        <div class="ph ph-interactive" role="group" aria-label="Placeholder interactif — Exercice de respiration interactif">
+          <span class="ph-type">Interactif</span>
+          <p class="ph-desc">1 exercice de respiration interactif (animation guidée, visuelle et sonore)</p>
+          <p class="ph-note">Immersive uniquement (NA_227, décision 22 mai 2026). En version web allégée, un exercice de respiration équivalent est disponible plus haut dans le Hall.</p>
+        </div>
+        <details class="cb-brief">
+          <summary>Intention éditoriale (grille V4)</summary>
+          <p class="cb-obj"><b>Objectif :</b> Offrir des outils de régulation émotionnelle entre les dômes. Permettre au visiteur de se recentrer.</p>
+          <p class="cb-ton"><b>Ton &amp; style :</b> Ton doux, guidant, méditatif. Citations : poétiques, universelles, non religieuses, ~30 mots. Exercice de respiration : instructions simples, rythme lent, phrases très courtes (≤ 15 mots). Écriture incarnée mais non intrusive.</p>
+        </details>
+      </article>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         ZONE 4 — PORTAILS DES DÔMES (V1 « Choix des dômes » préservé)
+         Trois portails, chacun : bande-annonce (vidéo) + résumé (texte)
+         + texte descriptif Douglas (texte). Mapping V1 : dome1/2/3-acte1.
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="hall-section" id="zone-domes" aria-labelledby="domes-title">
+      <header class="hall-section-head">
+        <span class="eyebrow">Portails des dômes · HC.4</span>
+        <h2 class="h-section" id="domes-title">Choisissez un témoignage</h2>
+        <p class="lede">Chaque dôme est un univers sensoriel unique, né d'un récit réel. Explorez les trois portails avant de choisir — sans spoiler.</p>
+      </header>
+
+      <!-- ── Portail Dôme 1 ─────────────────────────────────────────────── -->
+      <div class="dome-portal" aria-labelledby="portail-dome1-title">
+        <div class="dome-portal-head">
+          <span class="pill-cartel"><span class="dot" style="background:var(--c-plum);"></span><b>Dôme 1</b> · Participant·e 1</span>
+          <h3 class="h-block" id="portail-dome1-title">Premier dôme</h3>
+          <a href="dome1-acte1.html" class="btn-primary">Entrer dans le Dôme 1 <span class="arrow">→</span></a>
+        </div>
+
+        <article class="content-block" id="HC.4.1" data-content-id="HC.4.1" data-media="video">
+          <header class="cb-head">
+            <span class="cb-id">HC.4.1</span>
+            <span class="cb-section">Hall Central · Portails des dômes</span>
+          </header>
+          <h3 class="cb-title">Micro bande-annonce — Dôme 1</h3>
+          <div class="ph ph-video" role="group" aria-label="Placeholder vidéo — Micro bande-annonce Dôme 1">
+            <span class="ph-type">Vidéo</span>
+            <p class="ph-desc">Micro bande-annonce vidéo — Dôme 1 (15-30 secondes, sous-titrée)</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre un choix éclairé du dôme sans spoiler. Éduquer sur les conditions de santé mentale de manière vulgarisée.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton informatif, engageant, préparatoire. Bandes-annonces : évocatrices sans spoiler, ~30-50 mots, poétiques et sensorielles. Résumés textuels : accessibles, neutres, ~50 mots par dôme. Textes descriptifs : éducatifs, validés par Douglas, sans vocabulaire médical, ~60-80 mots. Proposer une expérience sensible, pas une explication clinique.</p>
+          </details>
+        </article>
+
+        <article class="content-block" id="HC.4.2" data-content-id="HC.4.2" data-media="text">
+          <header class="cb-head">
+            <span class="cb-id">HC.4.2</span>
+            <span class="cb-section">Hall Central · Portails des dômes</span>
+          </header>
+          <h3 class="cb-title">Résumé textuel équivalent — Dôme 1</h3>
+          <div class="ph ph-text" role="group" aria-label="Placeholder texte — Résumé textuel équivalent Dôme 1">
+            <span class="ph-type">Texte</span>
+            <p class="ph-desc">Résumé textuel équivalent — Dôme 1</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre un choix éclairé du dôme sans spoiler. Éduquer sur les conditions de santé mentale de manière vulgarisée.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton informatif, engageant, préparatoire. Bandes-annonces : évocatrices sans spoiler, ~30-50 mots, poétiques et sensorielles. Résumés textuels : accessibles, neutres, ~50 mots par dôme. Textes descriptifs : éducatifs, validés par Douglas, sans vocabulaire médical, ~60-80 mots. Proposer une expérience sensible, pas une explication clinique.</p>
+          </details>
+        </article>
+
+        <article class="content-block" id="HC.4.3" data-content-id="HC.4.3" data-media="text">
+          <header class="cb-head">
+            <span class="cb-id">HC.4.3</span>
+            <span class="cb-section">Hall Central · Portails des dômes</span>
+          </header>
+          <h3 class="cb-title">Texte descriptif de la condition — Dôme 1</h3>
+          <div class="ph ph-text" role="group" aria-label="Placeholder texte — Texte descriptif de la condition Dôme 1">
+            <span class="ph-type">Texte</span>
+            <p class="ph-desc">Texte descriptif sur la condition de santé mentale — Dôme 1 (en lien avec Douglas)</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre un choix éclairé du dôme sans spoiler. Éduquer sur les conditions de santé mentale de manière vulgarisée.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton informatif, engageant, préparatoire. Bandes-annonces : évocatrices sans spoiler, ~30-50 mots, poétiques et sensorielles. Résumés textuels : accessibles, neutres, ~50 mots par dôme. Textes descriptifs : éducatifs, validés par Douglas, sans vocabulaire médical, ~60-80 mots. Proposer une expérience sensible, pas une explication clinique.</p>
+          </details>
+        </article>
+      </div>
+
+      <!-- ── Portail Dôme 2 ─────────────────────────────────────────────── -->
+      <div class="dome-portal" aria-labelledby="portail-dome2-title">
+        <div class="dome-portal-head">
+          <span class="pill-cartel"><span class="dot" style="background:var(--c-denim);"></span><b>Dôme 2</b> · Participant·e 2</span>
+          <h3 class="h-block" id="portail-dome2-title">Deuxième dôme</h3>
+          <a href="dome2-acte1.html" class="btn-primary">Entrer dans le Dôme 2 <span class="arrow">→</span></a>
+        </div>
+
+        <article class="content-block" id="HC.4.4" data-content-id="HC.4.4" data-media="video">
+          <header class="cb-head">
+            <span class="cb-id">HC.4.4</span>
+            <span class="cb-section">Hall Central · Portails des dômes</span>
+          </header>
+          <h3 class="cb-title">Micro bande-annonce — Dôme 2</h3>
+          <div class="ph ph-video" role="group" aria-label="Placeholder vidéo — Micro bande-annonce Dôme 2">
+            <span class="ph-type">Vidéo</span>
+            <p class="ph-desc">Micro bande-annonce vidéo — Dôme 2 (15-30 secondes, sous-titrée)</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre un choix éclairé du dôme sans spoiler. Éduquer sur les conditions de santé mentale de manière vulgarisée.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton informatif, engageant, préparatoire. Bandes-annonces : évocatrices sans spoiler, ~30-50 mots, poétiques et sensorielles. Résumés textuels : accessibles, neutres, ~50 mots par dôme. Textes descriptifs : éducatifs, validés par Douglas, sans vocabulaire médical, ~60-80 mots. Proposer une expérience sensible, pas une explication clinique.</p>
+          </details>
+        </article>
+
+        <article class="content-block" id="HC.4.5" data-content-id="HC.4.5" data-media="text">
+          <header class="cb-head">
+            <span class="cb-id">HC.4.5</span>
+            <span class="cb-section">Hall Central · Portails des dômes</span>
+          </header>
+          <h3 class="cb-title">Résumé textuel équivalent — Dôme 2</h3>
+          <div class="ph ph-text" role="group" aria-label="Placeholder texte — Résumé textuel équivalent Dôme 2">
+            <span class="ph-type">Texte</span>
+            <p class="ph-desc">Résumé textuel équivalent — Dôme 2</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre un choix éclairé du dôme sans spoiler. Éduquer sur les conditions de santé mentale de manière vulgarisée.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton informatif, engageant, préparatoire. Bandes-annonces : évocatrices sans spoiler, ~30-50 mots, poétiques et sensorielles. Résumés textuels : accessibles, neutres, ~50 mots par dôme. Textes descriptifs : éducatifs, validés par Douglas, sans vocabulaire médical, ~60-80 mots. Proposer une expérience sensible, pas une explication clinique.</p>
+          </details>
+        </article>
+
+        <article class="content-block" id="HC.4.6" data-content-id="HC.4.6" data-media="text">
+          <header class="cb-head">
+            <span class="cb-id">HC.4.6</span>
+            <span class="cb-section">Hall Central · Portails des dômes</span>
+          </header>
+          <h3 class="cb-title">Texte descriptif de la condition — Dôme 2</h3>
+          <div class="ph ph-text" role="group" aria-label="Placeholder texte — Texte descriptif de la condition Dôme 2">
+            <span class="ph-type">Texte</span>
+            <p class="ph-desc">Texte descriptif sur la condition de santé mentale — Dôme 2 (en lien avec Douglas)</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre un choix éclairé du dôme sans spoiler. Éduquer sur les conditions de santé mentale de manière vulgarisée.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton informatif, engageant, préparatoire. Bandes-annonces : évocatrices sans spoiler, ~30-50 mots, poétiques et sensorielles. Résumés textuels : accessibles, neutres, ~50 mots par dôme. Textes descriptifs : éducatifs, validés par Douglas, sans vocabulaire médical, ~60-80 mots. Proposer une expérience sensible, pas une explication clinique.</p>
+          </details>
+        </article>
+      </div>
+
+      <!-- ── Portail Dôme 3 ─────────────────────────────────────────────── -->
+      <div class="dome-portal" aria-labelledby="portail-dome3-title">
+        <div class="dome-portal-head">
+          <span class="pill-cartel"><span class="dot" style="background:var(--c-teal);"></span><b>Dôme 3</b> · Participant·e 3</span>
+          <h3 class="h-block" id="portail-dome3-title">Troisième dôme</h3>
+          <a href="dome3-acte1.html" class="btn-primary">Entrer dans le Dôme 3 <span class="arrow">→</span></a>
+        </div>
+
+        <article class="content-block" id="HC.4.7" data-content-id="HC.4.7" data-media="video">
+          <header class="cb-head">
+            <span class="cb-id">HC.4.7</span>
+            <span class="cb-section">Hall Central · Portails des dômes</span>
+          </header>
+          <h3 class="cb-title">Micro bande-annonce — Dôme 3</h3>
+          <div class="ph ph-video" role="group" aria-label="Placeholder vidéo — Micro bande-annonce Dôme 3">
+            <span class="ph-type">Vidéo</span>
+            <p class="ph-desc">Micro bande-annonce vidéo — Dôme 3 (15-30 secondes, sous-titrée)</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre un choix éclairé du dôme sans spoiler. Éduquer sur les conditions de santé mentale de manière vulgarisée.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton informatif, engageant, préparatoire. Bandes-annonces : évocatrices sans spoiler, ~30-50 mots, poétiques et sensorielles. Résumés textuels : accessibles, neutres, ~50 mots par dôme. Textes descriptifs : éducatifs, validés par Douglas, sans vocabulaire médical, ~60-80 mots. Proposer une expérience sensible, pas une explication clinique.</p>
+          </details>
+        </article>
+
+        <article class="content-block" id="HC.4.8" data-content-id="HC.4.8" data-media="text">
+          <header class="cb-head">
+            <span class="cb-id">HC.4.8</span>
+            <span class="cb-section">Hall Central · Portails des dômes</span>
+          </header>
+          <h3 class="cb-title">Résumé textuel équivalent — Dôme 3</h3>
+          <div class="ph ph-text" role="group" aria-label="Placeholder texte — Résumé textuel équivalent Dôme 3">
+            <span class="ph-type">Texte</span>
+            <p class="ph-desc">Résumé textuel équivalent — Dôme 3</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre un choix éclairé du dôme sans spoiler. Éduquer sur les conditions de santé mentale de manière vulgarisée.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton informatif, engageant, préparatoire. Bandes-annonces : évocatrices sans spoiler, ~30-50 mots, poétiques et sensorielles. Résumés textuels : accessibles, neutres, ~50 mots par dôme. Textes descriptifs : éducatifs, validés par Douglas, sans vocabulaire médical, ~60-80 mots. Proposer une expérience sensible, pas une explication clinique.</p>
+          </details>
+        </article>
+
+        <article class="content-block" id="HC.4.9" data-content-id="HC.4.9" data-media="text">
+          <header class="cb-head">
+            <span class="cb-id">HC.4.9</span>
+            <span class="cb-section">Hall Central · Portails des dômes</span>
+          </header>
+          <h3 class="cb-title">Texte descriptif de la condition — Dôme 3</h3>
+          <div class="ph ph-text" role="group" aria-label="Placeholder texte — Texte descriptif de la condition Dôme 3">
+            <span class="ph-type">Texte</span>
+            <p class="ph-desc">Texte descriptif sur la condition de santé mentale — Dôme 3 (en lien avec Douglas)</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre un choix éclairé du dôme sans spoiler. Éduquer sur les conditions de santé mentale de manière vulgarisée.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton informatif, engageant, préparatoire. Bandes-annonces : évocatrices sans spoiler, ~30-50 mots, poétiques et sensorielles. Résumés textuels : accessibles, neutres, ~50 mots par dôme. Textes descriptifs : éducatifs, validés par Douglas, sans vocabulaire médical, ~60-80 mots. Proposer une expérience sensible, pas une explication clinique.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         ZONE 5 — INFORMATIONS (V1 préservé) + clôture vers le SAS de sortie
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="hall-section" id="zone-info" aria-labelledby="info-title">
+      <header class="hall-section-head">
+        <span class="eyebrow">Pour aller plus loin</span>
+        <h2 class="h-section" id="info-title">Vos repères, à portée de main</h2>
+      </header>
+      <div class="info-row">
+        <a href="accessibilite.html" class="info-block">
+          <h4>Accessibilité</h4>
+          <p>Ajustez l'expérience selon vos besoins : intensité, transcriptions, navigation clavier.</p>
+        </a>
+        <a href="projet.html" class="info-block">
+          <h4>À propos du projet</h4>
+          <p>Démarche, équipe, principes éthiques et partenaires derrière /inVISIBLE.</p>
+        </a>
+        <a href="ressources.html" class="info-block">
+          <h4>Ressources</h4>
+          <p>Lignes d'aide, organismes et pistes pour prolonger la réflexion.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="hall-closing" aria-labelledby="closing-title">
+      <h2 class="h-section" id="closing-title">Ressentir permet de comprendre autrement.</h2>
+      <p class="lede">
+        Lorsque vous êtes prêt·e à conclure votre visite, le SAS de sortie vous accompagnera en douceur.
+      </p>
+      <a href="sas-out.html" class="btn-primary">Conclure la visite <span class="arrow">→</span></a>
+    </section>
+
+  </main>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       FOOTER (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="img/logo-onyx.png" alt="/inVISIBLE" class="footer-brand-logo">
+        <p>Un musée virtuel immersif qui traduit des témoignages de santé mentale en environnements sensoriels. Créé avec respect, éthique et bienveillance.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <ul>
+          <li><a href="sas-in.html">L'expérience web</a></li>
+          <li><a href="hall-central.html">Hall central</a></li>
+          <li><a href="dome1-acte1.html">Dôme 1</a></li>
+          <li><a href="dome2-acte1.html">Dôme 2</a></li>
+          <li><a href="dome3-acte1.html">Dôme 3</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Le projet</h4>
+        <ul>
+          <li><a href="projet.html">À propos</a></li>
+          <li><a href="credits.html">Crédits &amp; Contact</a></li>
+          <li><a href="ressources.html">Ressources</a></li>
+          <li><a href="accessibilite.html">Accessibilité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Soutien</h4>
+        <ul>
+          <li><a href="ressources.html">Lignes d'aide</a></li>
+          <li><a href="ressources.html">Ressources supplémentaires</a></li>
+          <li><a href="accessibilite.html">Réglages d'accessibilité</a></li>
+          <li><a href="credits.html">Nous contacter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 /inVISIBLE — Société des Arts Technologiques. Tous droits réservés.</p>
+      <ul class="footer-bottom-links">
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       SUPPORT-ZONE (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <div class="support-zone">
+    <button class="support-dot" aria-label="Ressources de soutien" aria-expanded="false" aria-controls="support-menu">i</button>
+    <div class="support-dropdown" id="support-menu" role="region" aria-label="Lignes d'aide et soutien">
+      <div class="support-dropdown-title">Besoin d'aide ?</div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-denim);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Tel-Aide</strong>
+          <span>Écoute 24/7, confidentielle et gratuite</span><br>
+          <a href="tel:5149351101">514 935-1101</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-teal);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Prévention du suicide</strong>
+          <span>Ligne québécoise — 24/7</span><br>
+          <a href="tel:18662773553">1-866-APPELLE (277-3553)</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-plum);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Crisis Text Line</strong>
+          <span>Soutien par texto — 24/7</span><br>
+          <a href="sms:686868">Textez BONJOUR au 686868</a>
+        </div>
+      </div>
+      <div class="support-dropdown-footer">
+        <a href="ressources.html">Voir toutes les ressources →</a>
+      </div>
+    </div>
+    <button class="espace-protege" aria-label="Espace protégé — accéder à un espace calme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Espace protégé
+    </button>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       PRESENCE-ZONE (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <div class="presence-zone">
+    <div class="presence-indicator" aria-label="Visiteurs actuellement présents">
+    <div class="presence-dots" aria-hidden="true">
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+    </div>
+    <span class="presence-text">
+      <span class="presence-count">0</span>
+      <span class="presence-label">présence</span>
+    </span>
+    </div>
+    <button class="a11y-dot" aria-label="Réglages d'accessibilité" aria-expanded="false" aria-controls="a11y-quick-menu">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+    <div class="a11y-dropdown" id="a11y-quick-menu" role="region" aria-label="Réglages rapides d'accessibilité">
+      <div class="a11y-dropdown-title">Accessibilité</div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+          Animations
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Désactiver les animations" tabindex="0" data-key="a11y-reduce-motion"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z"/></svg>
+          Contraste
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Activer le contraste élevé" tabindex="0" data-key="a11y-high-contrast"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+          Texte agrandi
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Agrandir le texte" tabindex="0" data-key="a11y-large-text"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+          Focus renforcé
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Renforcer les indicateurs de focus" tabindex="0" data-key="a11y-focus-enhanced"></div>
+      </div>
+      <div class="a11y-volume-row">
+        <button class="a11y-mute-btn" aria-label="Couper le son" tabindex="0">
+          <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+        <input type="range" class="a11y-volume-slider" min="0" max="100" value="80" aria-label="Volume" tabindex="0">
+        <span class="a11y-volume-value">80%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       ESPACE-PROTEGE-MODAL (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <div id="espace-protege-modal" class="modal" role="dialog" aria-label="Espace protégé" aria-modal="true" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(18,18,18,0.95);backdrop-filter:blur(30px);">
+    <div style="max-width:600px;margin:auto;padding:4rem 2rem;text-align:center;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+      <h2 style="margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em;">ESPACE PROTÉGÉ</h2>
+      <p style="margin-bottom:2rem;">Vous êtes dans un espace calme et sécuritaire. Prenez le temps dont vous avez besoin. Aucune pression, aucun jugement.</p>
+      <p style="font-size:0.9rem;margin-bottom:2rem;">Si vous avez besoin de soutien, n'hésitez pas à contacter une ligne d'aide :<br><strong>Tel-Aide : 514 935-1101</strong></p>
+      <button class="modal-close btn-ghost" onclick="document.getElementById('espace-protege-modal').style.display='none'">RETOURNER À L'EXPÉRIENCE</button>
+    </div>
+  </div>
+
+  <script src="js/breathing.js" defer></script>
+  <script src="js/site.js" defer></script>
+</body>
+</html>

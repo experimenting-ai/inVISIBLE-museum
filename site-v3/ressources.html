@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="/inVISIBLE : L'empreinte de nos silences — Ressources : fiches pédagogiques Douglas, guide pour médiateurs, lignes d'aide et bibliographie.">
+  <title>Ressources — /inVISIBLE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       RESSOURCES — page-scoped LAYOUT ONLY (no new colours; tokens/vars reused).
+       Restyles V1's hero + "Lignes d'aide" + "Organismes" + "Lexique" flow with
+       the V3 design system, and populates the V4 grid placeholders PI.4.1–PI.4.5.
+       Persistent UI, organic gradient, components and palette all come from
+       css/style.css. These wrappers mirror index.html's page-scoped pattern.
+       ════════════════════════════════════════════════════════════════════ -->
+  <style>
+    /* Generic content wrappers (the built CSS ships tokens, not page wraps) */
+    .wrap        { max-width: var(--max-content); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
+    .wrap-text   { max-width: var(--max-text);    margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
+    .section-pad { padding-block: clamp(3rem, 7vw, 6rem); position: relative; z-index: 1; }
+    .section-head { margin-bottom: clamp(1.75rem, 4vw, 2.75rem); }
+
+    /* HERO — organic gradient (Ressources est le filet de sécurité permanent) */
+    .res-hero {
+      position: relative;
+      min-height: 46vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center;
+      padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+    }
+    .res-hero-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+      max-width: 720px;
+    }
+    .res-hero .lede { max-width: 50ch; }
+
+    /* HELPLINE LIST (PI.4.3 — restyle V1 .resource-list/.resource-item) */
+    .res-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.85rem; }
+    .res-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      background: var(--bg); border: 1px solid var(--line); border-radius: 14px;
+      transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+    }
+    .res-item:hover, .res-item:focus-within { transform: translateY(-2px); box-shadow: var(--glass-shadow); }
+    .res-icon {
+      flex-shrink: 0; width: 42px; height: 42px; border-radius: 10px;
+      display: grid; place-items: center; color: #fff; font-size: 1.1rem;
+    }
+    .res-icon svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+    .res-item-body strong { display: block; font-family: var(--f-display); font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
+    .res-item-body p { font-size: 0.9rem; color: var(--ink-2); margin: 0; line-height: 1.5; }
+    .res-item-body a { color: var(--accent-text); }
+
+    /* LEXIQUE cards (restyle V1 .card list with the .cartel component frame) */
+    .lex-grid { display: flex; flex-direction: column; gap: 0.85rem; }
+    .lex-grid .cartel p { margin: 0; color: var(--ink-2); line-height: 1.55; }
+    .lex-grid .cartel strong { color: var(--ink); }
+
+    /* CAUTION callout (PI.4.5 — texte de caution liens externes, bienveillant) */
+    .res-caution {
+      max-width: var(--max-text); margin: 0 auto;
+      background: var(--bg); border: 1px solid var(--line);
+      border-left: 4px solid var(--accent); border-radius: 14px;
+      padding: clamp(1.25rem, 3.5vw, 1.85rem);
+      box-shadow: var(--glass-shadow);
+    }
+    .res-caution .rc-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--f-mono); font-size: 11px; letter-spacing: var(--t-caps);
+      text-transform: uppercase; color: var(--accent-text); margin-bottom: 0.75rem;
+    }
+    .res-caution .rc-icon { width: 18px; height: 18px; stroke: var(--accent-text); fill: none; stroke-width: 2; }
+    .res-caution p { color: var(--ink-2); margin-bottom: 0.55rem; }
+    .res-caution p:last-child { margin-bottom: 0; }
+
+    @media (max-width: 600px) { .res-item { flex-direction: row; } }
+  </style>
+</head>
+<body data-theme="light">
+  <!-- ════════════════════════════════════════════════════════════════════
+       SKIP-LINK (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
+
+  <!-- SVG warp filter for the organic gradient hero (referenced by .organic-hero-field) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="warp-collee" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves="2" seed="9" stitchTiles="stitch" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="32" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       NAV — STATIC (verbatim from _ref/PARTIALS.html). In normal flow:
+       it scrolls away with the page. Active link set by js/site.js.
+       ════════════════════════════════════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Accueil /inVISIBLE">
+        <img src="img/logo-onyx.png" alt="/inVISIBLE" class="nav-logo-img">
+        <span class="nav-logo-text">/inVISIBLE</span>
+      </a>
+      <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">ACCUEIL</a></li>
+        <li><a href="sas-in.html">EXPÉRIENCE</a></li>
+        <li><a href="projet.html">LE PROJET</a></li>
+        <li><a href="ressources.html">RESSOURCES</a></li>
+        <li><a href="accessibilite.html">ACCESSIBILITÉ</a></li>
+      </ul>
+      <div class="lang-toggle" role="group" aria-label="Choix de langue">
+        <button class="lang-btn lang-active" aria-pressed="true">FR</button>
+        <button class="lang-btn" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         HERO — Ressources (V1 title + subtitle preserved). Organic gradient.
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="organic-hero res-hero" aria-labelledby="res-hero-title">
+      <div class="organic-hero-field" aria-hidden="true"></div>
+      <div class="res-hero-inner">
+        <span class="eyebrow">Filet de sécurité · Volet pédagogique</span>
+        <h1 class="h-display" id="res-hero-title">Ressources</h1>
+        <p class="lede">Des pistes pour prolonger la réflexion et trouver du soutien.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         PI.4.1 — Fiches pédagogiques Douglas
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="pi-4-1-h">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Fiches Douglas · PI.4</span>
+          <h2 class="h-section" id="pi-4-1-h">Comprendre les conditions de santé mentale</h2>
+          <p class="lede">Des fiches pédagogiques, élaborées en collaboration avec l'Institut Douglas, en vocabulaire simple et inclusif — sans diagnostic.</p>
+        </div>
+
+        <article class="content-block" id="PI.4.1" data-content-id="PI.4.1" data-media="image">
+          <header class="cb-head">
+            <span class="cb-id">PI.4.1</span>
+            <span class="cb-section">Ressources · Fiches pédagogiques</span>
+          </header>
+          <h3 class="cb-title">Fiches pédagogiques sur les conditions de santé mentale</h3>
+          <div class="ph ph-image" role="group" aria-label="Placeholder image — fiches pédagogiques Douglas">
+            <span class="ph-type">Image</span>
+            <p class="ph-desc">Fiches pédagogiques sur les conditions de santé mentale (en collaboration avec Douglas)</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Filet de sécurité permanent et prolongement éducatif. Accessible via le bouton Espace Protégé. Le volet pédagogique répond à l'exigence DMC de contenu éducatif complémentaire.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton direct, bienveillant, concret. Liens organismes d'aide : clairement présentés, sans détour. Textes de caution : informer que certains sites peuvent être non accessibles ou unilingues. Fiches pédagogiques : vocabulaire simple, inclusif, validé par Douglas, sans diagnostic. Guide médiateurs : ~60-80 mots d'intro, professionnel mais accessible.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         PI.4.2 — Guide pour médiateurs culturels et enseignants
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="pi-4-2-h">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Médiation · PI.4</span>
+          <h2 class="h-section" id="pi-4-2-h">Pour les médiateurs et les enseignants</h2>
+          <p class="lede">Un guide pour accompagner un groupe à travers l'expérience, en classe ou en contexte culturel.</p>
+        </div>
+
+        <article class="content-block" id="PI.4.2" data-content-id="PI.4.2" data-media="image">
+          <header class="cb-head">
+            <span class="cb-id">PI.4.2</span>
+            <span class="cb-section">Ressources · Guide médiateurs</span>
+          </header>
+          <h3 class="cb-title">Guide pour médiateurs culturels et enseignants</h3>
+          <div class="ph ph-image" role="group" aria-label="Placeholder image — guide pour médiateurs culturels et enseignants">
+            <span class="ph-type">Image</span>
+            <p class="ph-desc">Guide pour médiateurs culturels et enseignants</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Filet de sécurité permanent et prolongement éducatif. Accessible via le bouton Espace Protégé. Le volet pédagogique répond à l'exigence DMC de contenu éducatif complémentaire.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton direct, bienveillant, concret. Liens organismes d'aide : clairement présentés, sans détour. Textes de caution : informer que certains sites peuvent être non accessibles ou unilingues. Fiches pédagogiques : vocabulaire simple, inclusif, validé par Douglas, sans diagnostic. Guide médiateurs : ~60-80 mots d'intro, professionnel mais accessible.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         LIGNES D'AIDE + ORGANISMES (V1 preserved copy, restyled) — these
+         feed PI.4.3 (liens interactifs vers organismes d'aide).
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="aide-h">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Soutien immédiat</span>
+          <h2 class="h-section" id="aide-h">Lignes d'aide</h2>
+          <p class="lede">Si vous avez besoin de parler à quelqu'un, ces ressources sont là, en tout temps.</p>
+        </div>
+
+        <ul class="res-list">
+          <li class="res-item">
+            <div class="res-icon" style="background:var(--c-denim);" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="res-item-body">
+              <strong>Tel-Aide</strong>
+              <p><a href="tel:5149351101">514 935-1101</a> — Écoute 24/7, confidentielle et gratuite.</p>
+            </div>
+          </li>
+          <li class="res-item">
+            <div class="res-icon" style="background:var(--c-teal);" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="res-item-body">
+              <strong>Ligne québécoise de prévention du suicide</strong>
+              <p><a href="tel:18662773553">1-866-APPELLE (277-3553)</a> — Disponible 24/7.</p>
+            </div>
+          </li>
+          <li class="res-item">
+            <div class="res-icon" style="background:var(--c-plum);" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="res-item-body">
+              <strong>Crisis Services Canada</strong>
+              <p><a href="tel:18334564566">1-833-456-4566</a> — National crisis helpline, 24/7.</p>
+            </div>
+          </li>
+          <li class="res-item">
+            <div class="res-icon" style="background:var(--c-thistle);color:var(--ink);" aria-hidden="true">
+              <svg viewBox="0 0 24 24" style="stroke:var(--ink);"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="res-item-body">
+              <strong>Suicide Action Montréal</strong>
+              <p><a href="tel:18662773553">1-866-APPELLE</a> — Écoute spécialisée.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── Organismes et références (V1 preserved copy, restyled) ───────── -->
+    <section class="section-pad" aria-labelledby="orgs-h">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Organismes</span>
+          <h2 class="h-section" id="orgs-h">Organismes et références</h2>
+        </div>
+
+        <ul class="res-list">
+          <li class="res-item">
+            <div class="res-icon" style="background:color-mix(in srgb, var(--c-teal) 22%, var(--bg-2));color:var(--c-teal-deep-text);" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M12 9v6"/><path d="M9 12h6"/></svg>
+            </div>
+            <div class="res-item-body">
+              <strong>Institut universitaire en santé mentale Douglas</strong>
+              <p>Partenaire clinique du projet. Recherche, soins et enseignement en santé mentale.</p>
+            </div>
+          </li>
+          <li class="res-item">
+            <div class="res-icon" style="background:color-mix(in srgb, var(--c-denim) 22%, var(--bg-2));color:var(--c-denim-deep-text);" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            </div>
+            <div class="res-item-body">
+              <strong>Association canadienne pour la santé mentale (ACSM)</strong>
+              <p>Information, sensibilisation et soutien communautaire.</p>
+            </div>
+          </li>
+          <li class="res-item">
+            <div class="res-icon" style="background:color-mix(in srgb, var(--c-plum) 22%, var(--bg-2));color:var(--c-plum-deep-text);" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="res-item-body">
+              <strong>Mouvement Santé mentale Québec</strong>
+              <p>Campagnes de sensibilisation et outils de promotion de la santé mentale.</p>
+            </div>
+          </li>
+        </ul>
+
+        <!-- PI.4.3 — Liens interactifs vers organismes d'aide -->
+        <article class="content-block" id="PI.4.3" data-content-id="PI.4.3" data-media="interactive" style="margin-top:var(--space-lg);">
+          <header class="cb-head">
+            <span class="cb-id">PI.4.3</span>
+            <span class="cb-section">Ressources · Organismes d'aide</span>
+          </header>
+          <h3 class="cb-title">Liens interactifs vers les organismes d'aide</h3>
+          <div class="ph ph-interactive" role="group" aria-label="Placeholder interactif — liens vers les organismes d'aide">
+            <span class="ph-type">Interactif</span>
+            <p class="ph-desc">Liens interactifs vers organismes d'aide (Douglas, Tel-jeunes, Suicide Action Montréal, Ligne québécoise de prévention du suicide)</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Filet de sécurité permanent et prolongement éducatif. Accessible via le bouton Espace Protégé. Le volet pédagogique répond à l'exigence DMC de contenu éducatif complémentaire.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton direct, bienveillant, concret. Liens organismes d'aide : clairement présentés, sans détour. Textes de caution : informer que certains sites peuvent être non accessibles ou unilingues. Fiches pédagogiques : vocabulaire simple, inclusif, validé par Douglas, sans diagnostic. Guide médiateurs : ~60-80 mots d'intro, professionnel mais accessible.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         PI.4.4 — Bibliographie consultable et liens complémentaires
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="pi-4-4-h">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Pour aller plus loin · PI.4</span>
+          <h2 class="h-section" id="pi-4-4-h">Bibliographie et liens complémentaires</h2>
+          <p class="lede">Une sélection de lectures et de références pour approfondir, à votre rythme.</p>
+        </div>
+
+        <article class="content-block" id="PI.4.4" data-content-id="PI.4.4" data-media="interactive">
+          <header class="cb-head">
+            <span class="cb-id">PI.4.4</span>
+            <span class="cb-section">Ressources · Bibliographie</span>
+          </header>
+          <h3 class="cb-title">Bibliographie consultable et liens complémentaires</h3>
+          <div class="ph ph-interactive" role="group" aria-label="Placeholder interactif — bibliographie consultable et liens complémentaires">
+            <span class="ph-type">Interactif</span>
+            <p class="ph-desc">Bibliographie consultable et liens complémentaires</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Filet de sécurité permanent et prolongement éducatif. Accessible via le bouton Espace Protégé. Le volet pédagogique répond à l'exigence DMC de contenu éducatif complémentaire.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton direct, bienveillant, concret. Liens organismes d'aide : clairement présentés, sans détour. Textes de caution : informer que certains sites peuvent être non accessibles ou unilingues. Fiches pédagogiques : vocabulaire simple, inclusif, validé par Douglas, sans diagnostic. Guide médiateurs : ~60-80 mots d'intro, professionnel mais accessible.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         PI.4.5 — Textes de caution pour les liens externes (bienveillant)
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="pi-4-5-h">
+      <div class="wrap">
+        <div class="res-caution" role="region" aria-labelledby="pi-4-5-h">
+          <span class="rc-eyebrow">
+            <svg class="rc-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            Avant de suivre un lien externe
+          </span>
+          <h2 class="h-block" id="pi-4-5-h" style="margin-bottom:0.75rem;">À propos des liens externes</h2>
+          <p>Certaines ressources vous redirigent vers des sites tiers. Ces sites ne sont pas sous notre contrôle : leur contenu peut différer, et certains peuvent ne pas être pleinement accessibles ou disponibles uniquement en une seule langue.</p>
+          <p>Vous avancez à votre rythme. Le bouton <strong>Espace protégé</strong> reste accessible en permanence si vous avez besoin d'une pause.</p>
+        </div>
+
+        <!-- PI.4.5 — Textes de caution pour les liens externes -->
+        <article class="content-block" id="PI.4.5" data-content-id="PI.4.5" data-media="text" style="margin-top:var(--space-lg);">
+          <header class="cb-head">
+            <span class="cb-id">PI.4.5</span>
+            <span class="cb-section">Ressources · Liens externes</span>
+          </header>
+          <h3 class="cb-title">Textes de caution pour les liens externes</h3>
+          <div class="ph ph-text" role="group" aria-label="Placeholder texte — textes de caution pour les liens externes">
+            <span class="ph-type">Texte</span>
+            <p class="ph-desc">Textes de caution pour les liens externes</p>
+            <span class="ph-note">Caution affichée ci-dessus comme gabarit bienveillant — informe que certains sites peuvent être non accessibles ou unilingues.</span>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Filet de sécurité permanent et prolongement éducatif. Accessible via le bouton Espace Protégé. Le volet pédagogique répond à l'exigence DMC de contenu éducatif complémentaire.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton direct, bienveillant, concret. Liens organismes d'aide : clairement présentés, sans détour. Textes de caution : informer que certains sites peuvent être non accessibles ou unilingues. Fiches pédagogiques : vocabulaire simple, inclusif, validé par Douglas, sans diagnostic. Guide médiateurs : ~60-80 mots d'intro, professionnel mais accessible.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         LEXIQUE CONTEXTUEL (V1 preserved copy, restyled with .cartel)
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="lex-h">
+      <div class="wrap-text">
+        <div class="section-head">
+          <span class="eyebrow">Repères</span>
+          <h2 class="h-section" id="lex-h">Lexique contextuel</h2>
+        </div>
+        <div class="lex-grid">
+          <div class="cartel"><p><strong>Artefact</strong> — Création visuelle, sonore ou textuelle générée par intelligence artificielle à partir d'un témoignage humain.</p></div>
+          <div class="cartel"><p><strong>Transmutation</strong> — Geste symbolique déclenchant la transformation des artefacts de tourmente en artefacts d'espoir.</p></div>
+          <div class="cartel"><p><strong>Dôme d'expérience</strong> — Espace hémisphérique immersif dédié à un témoignage, structuré en trois actes narratifs.</p></div>
+          <div class="cartel"><p><strong>Espace protégé</strong> — Refuge accessible à tout moment, offrant un espace calme et des ressources de soutien.</p></div>
+          <div class="cartel"><p><strong>SAS</strong> — Zone de transition entre l'extérieur et l'expérience muséale, servant de préparation (émotionnelle) ou d'atterrissage.</p></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       FOOTER (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="img/logo-onyx.png" alt="/inVISIBLE" class="footer-brand-logo">
+        <p>Un musée virtuel immersif qui traduit des témoignages de santé mentale en environnements sensoriels. Créé avec respect, éthique et bienveillance.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <ul>
+          <li><a href="sas-in.html">L'expérience web</a></li>
+          <li><a href="hall-central.html">Hall central</a></li>
+          <li><a href="dome1-acte1.html">Dôme 1</a></li>
+          <li><a href="dome2-acte1.html">Dôme 2</a></li>
+          <li><a href="dome3-acte1.html">Dôme 3</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Le projet</h4>
+        <ul>
+          <li><a href="projet.html">À propos</a></li>
+          <li><a href="credits.html">Crédits &amp; Contact</a></li>
+          <li><a href="ressources.html">Ressources</a></li>
+          <li><a href="accessibilite.html">Accessibilité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Soutien</h4>
+        <ul>
+          <li><a href="ressources.html">Lignes d'aide</a></li>
+          <li><a href="ressources.html">Ressources supplémentaires</a></li>
+          <li><a href="accessibilite.html">Réglages d'accessibilité</a></li>
+          <li><a href="credits.html">Nous contacter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 /inVISIBLE — Société des Arts Technologiques. Tous droits réservés.</p>
+      <ul class="footer-bottom-links">
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       SUPPORT-ZONE (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <div class="support-zone">
+    <button class="support-dot" aria-label="Ressources de soutien" aria-expanded="false" aria-controls="support-menu">i</button>
+    <div class="support-dropdown" id="support-menu" role="region" aria-label="Lignes d'aide et soutien">
+      <div class="support-dropdown-title">Besoin d'aide ?</div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-denim);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Tel-Aide</strong>
+          <span>Écoute 24/7, confidentielle et gratuite</span><br>
+          <a href="tel:5149351101">514 935-1101</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-teal);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Prévention du suicide</strong>
+          <span>Ligne québécoise — 24/7</span><br>
+          <a href="tel:18662773553">1-866-APPELLE (277-3553)</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-plum);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Crisis Text Line</strong>
+          <span>Soutien par texto — 24/7</span><br>
+          <a href="sms:686868">Textez BONJOUR au 686868</a>
+        </div>
+      </div>
+      <div class="support-dropdown-footer">
+        <a href="ressources.html">Voir toutes les ressources →</a>
+      </div>
+    </div>
+    <button class="espace-protege" aria-label="Espace protégé — accéder à un espace calme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Espace protégé
+    </button>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       PRESENCE-ZONE (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <div class="presence-zone">
+    <div class="presence-indicator" aria-label="Visiteurs actuellement présents">
+    <div class="presence-dots" aria-hidden="true">
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+    </div>
+    <span class="presence-text">
+      <span class="presence-count">0</span>
+      <span class="presence-label">présence</span>
+    </span>
+    </div>
+    <button class="a11y-dot" aria-label="Réglages d'accessibilité" aria-expanded="false" aria-controls="a11y-quick-menu">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+    <div class="a11y-dropdown" id="a11y-quick-menu" role="region" aria-label="Réglages rapides d'accessibilité">
+      <div class="a11y-dropdown-title">Accessibilité</div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+          Animations
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Désactiver les animations" tabindex="0" data-key="a11y-reduce-motion"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z"/></svg>
+          Contraste
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Activer le contraste élevé" tabindex="0" data-key="a11y-high-contrast"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+          Texte agrandi
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Agrandir le texte" tabindex="0" data-key="a11y-large-text"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+          Focus renforcé
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Renforcer les indicateurs de focus" tabindex="0" data-key="a11y-focus-enhanced"></div>
+      </div>
+      <div class="a11y-volume-row">
+        <button class="a11y-mute-btn" aria-label="Couper le son" tabindex="0">
+          <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+        <input type="range" class="a11y-volume-slider" min="0" max="100" value="80" aria-label="Volume" tabindex="0">
+        <span class="a11y-volume-value">80%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       ESPACE-PROTEGE-MODAL (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <div id="espace-protege-modal" class="modal" role="dialog" aria-label="Espace protégé" aria-modal="true" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(18,18,18,0.95);backdrop-filter:blur(30px);">
+    <div style="max-width:600px;margin:auto;padding:4rem 2rem;text-align:center;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+      <h2 style="margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em;">ESPACE PROTÉGÉ</h2>
+      <p style="margin-bottom:2rem;">Vous êtes dans un espace calme et sécuritaire. Prenez le temps dont vous avez besoin. Aucune pression, aucun jugement.</p>
+      <p style="font-size:0.9rem;margin-bottom:2rem;">Si vous avez besoin de soutien, n'hésitez pas à contacter une ligne d'aide :<br><strong>Tel-Aide : 514 935-1101</strong></p>
+      <button class="modal-close btn-ghost" onclick="document.getElementById('espace-protege-modal').style.display='none'">RETOURNER À L'EXPÉRIENCE</button>
+    </div>
+  </div>
+
+  <script src="js/site.js" defer></script>
+</body>
+</html>
