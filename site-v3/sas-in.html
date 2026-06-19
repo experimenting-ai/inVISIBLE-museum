@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="/inVISIBLE : L'empreinte de nos silences — SAS d'accueil : mise en condition, transition douce avant l'entrée dans le musée.">
+  <title>SAS d'accueil — Mise en condition — /inVISIBLE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       SAS IN — page-scoped LAYOUT ONLY (no new colours; tokens/vars reused).
+       Restyles V1's "Bienvenue" entrance, the bienveillant content warning,
+       the #respiration breathing / calm flow and the exit affordances with
+       the V3 design system. The persistent UI, the organic gradient, the
+       components and the palette all come from css/style.css.
+       ════════════════════════════════════════════════════════════════════ -->
+  <style>
+    /* Generic content wrappers (the built CSS ships tokens, not page wraps) */
+    .wrap        { max-width: var(--max-content); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
+    .wrap-text   { max-width: var(--max-text);    margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
+    .section-pad { padding-block: clamp(3rem, 7vw, 6rem); position: relative; z-index: 1; }
+    .section-head { margin-bottom: clamp(1.75rem, 4vw, 2.75rem); }
+
+    /* HERO — organic gradient, full viewport (uses .organic-hero from style.css) */
+    .hero-sas {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: clamp(2rem, 6vw, 4rem) 1.5rem;
+    }
+    .hero-sas-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.3rem;
+      max-width: 720px;
+    }
+    .hero-sas .lede { max-width: 48ch; }
+    .hero-sas-cta {
+      display: flex; gap: 0.9rem; flex-wrap: wrap; justify-content: center;
+      margin-top: 0.4rem;
+    }
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      font-family: var(--f-mono); font-size: 11px; letter-spacing: var(--t-caps);
+      text-transform: uppercase; color: var(--meta);
+    }
+    .scroll-hint .arrow {
+      width: 11px; height: 11px;
+      border-right: 1.5px solid var(--meta); border-bottom: 1.5px solid var(--meta);
+      transform: rotate(45deg); animation: scrollBounce 2.4s infinite;
+    }
+    @keyframes scrollBounce {
+      0%,100% { transform: rotate(45deg) translateY(0);   opacity: 0.4; }
+      50%     { transform: rotate(45deg) translateY(5px);  opacity: 0.85; }
+    }
+
+    /* CONTENT WARNING (SAS.1.3 gate) — bienveillant, restyled from V1's .exp-warning */
+    .sas-warning {
+      max-width: 680px; margin: 0 auto;
+      background: var(--bg); border: 1px solid var(--line);
+      border-left: 4px solid var(--accent); border-radius: 16px;
+      padding: clamp(1.5rem, 4vw, 2.25rem);
+      box-shadow: var(--glass-shadow);
+    }
+    .sas-warning .sw-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--f-mono); font-size: 11px; letter-spacing: var(--t-caps);
+      text-transform: uppercase; color: var(--accent-text);
+      margin-bottom: 0.9rem;
+    }
+    .sas-warning .sw-icon { width: 18px; height: 18px; stroke: var(--accent-text); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .sas-warning h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--ink); margin-bottom: 0.75rem; letter-spacing: var(--t-h2); }
+    .sas-warning p  { color: var(--ink-2); margin-bottom: 0.6rem; }
+    .sas-warning p strong { color: var(--accent-text); font-weight: 600; }
+
+    /* MÉCANISMES DE SORTIE — small reassurance grid (exit affordances, V1 copy) */
+    .exit-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin-top: 1.5rem;
+    }
+    .exit-card {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      padding: 1.4rem 1.3rem;
+      background: var(--bg); border: 1px solid var(--line); border-top: 3px solid var(--accent);
+      border-radius: 16px;
+    }
+    .exit-card .exit-icon { width: 36px; height: 36px; border-radius: 10px; background: color-mix(in srgb, var(--accent) 14%, transparent); display: grid; place-items: center; }
+    .exit-card .exit-icon svg { width: 19px; height: 19px; stroke: var(--accent-text); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .exit-card h3 { font-family: var(--f-display); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--ink); }
+    .exit-card p  { font-size: 0.82rem; color: var(--ink-2); line-height: 1.5; }
+
+    /* RESPIRATION / CALME — #respiration anchor preserved from V1 */
+    .sas-calm { text-align: center; }
+    .breathing-container {
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+      margin: 0 auto; max-width: 480px;
+    }
+    .breathing-circle-outer {
+      width: 160px; height: 160px; border-radius: 50%;
+      display: grid; place-items: center;
+      border: 1px solid var(--line-2);
+      background: color-mix(in srgb, var(--accent) 8%, transparent);
+    }
+    .breathing-circle {
+      width: 96px; height: 96px; border-radius: 50%;
+      background: color-mix(in srgb, var(--accent) 26%, var(--bg-2));
+      animation: breathePulse 8s ease-in-out infinite;
+    }
+    @keyframes breathePulse {
+      0%, 100% { transform: scale(0.78); opacity: 0.7; }
+      50%      { transform: scale(1.18); opacity: 1; }
+    }
+    .breathing-label { font-family: var(--f-mono); font-size: 12px; letter-spacing: var(--t-caps); text-transform: uppercase; color: var(--meta); min-height: 1.2em; }
+    .breathing-controls { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+
+    .calm-carousel {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+    .calm-card {
+      background: var(--bg); border: 1px solid var(--line);
+      border-radius: 16px; padding: 1.4rem 1.2rem; width: 220px; text-align: center;
+      transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+    }
+    .calm-card:hover { transform: translateY(-2px); box-shadow: var(--glass-shadow); }
+    .calm-card.active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, var(--bg)); }
+    .calm-card-icon { font-size: 1.6rem; color: var(--accent-text); margin-bottom: 0.6rem; }
+    .calm-card h4 { font-family: var(--f-display); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--ink); margin-bottom: 0.3rem; }
+    .calm-card p  { font-size: 0.8rem; color: var(--ink-2); line-height: 1.45; }
+
+    /* ONWARD — close of the sas, leads to the Hall central (V1 nav target) */
+    .sas-onward { text-align: center; max-width: 640px; margin: 0 auto; }
+    .sas-onward .lede { margin-left: auto; margin-right: auto; }
+
+    @media (max-width: 900px) { .exit-row { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .calm-card { width: 100%; max-width: 280px; } }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-hint .arrow { animation: none; }
+      .breathing-circle  { animation: none; transform: scale(1); }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <!-- ════════════════════════════════════════════════════════════════════
+       SKIP-LINK (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
+
+  <!-- ░░ SVG warp filters — feTurbulence defs for the organic gradient (v2) ░░ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="warp-collee" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves="2" seed="13" stitchTiles="stitch" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="30" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       NAV — STATIC (verbatim from _ref/PARTIALS.html). In normal flow:
+       it scrolls away with the page. Active link set by js/site.js.
+       ════════════════════════════════════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Accueil /inVISIBLE">
+        <img src="img/logo-onyx.png" alt="/inVISIBLE" class="nav-logo-img">
+        <span class="nav-logo-text">/inVISIBLE</span>
+      </a>
+      <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">ACCUEIL</a></li>
+        <li><a href="sas-in.html">EXPÉRIENCE</a></li>
+        <li><a href="projet.html">LE PROJET</a></li>
+        <li><a href="ressources.html">RESSOURCES</a></li>
+        <li><a href="accessibilite.html">ACCESSIBILITÉ</a></li>
+      </ul>
+      <div class="lang-toggle" role="group" aria-label="Choix de langue">
+        <button class="lang-btn lang-active" aria-pressed="true">FR</button>
+        <button class="lang-btn" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SAS IN — « Bienvenue » (preserved from V1) — organic gradient hero.
+         Transition douce, voix d'introduction, ambiance apaisante.
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="organic-hero hero-sas" aria-labelledby="sas-hero-title">
+      <div class="organic-hero-field" aria-hidden="true"></div>
+      <div class="hero-sas-inner">
+        <span class="eyebrow">SAS d'accueil · Mise en condition</span>
+        <h1 class="h-display" id="sas-hero-title">Bienvenue</h1>
+        <p class="lede">
+          Certaines réalités ne se voient pas. Elles se murmurent, se taisent, se ressentent.
+          /inVISIBLE vous invite à entrer dans ces espaces intérieurs, avec respect et lenteur.
+        </p>
+        <div class="hero-sas-cta">
+          <a href="#respiration" class="btn-primary">Prendre un moment <span class="arrow">→</span></a>
+          <a href="hall-central.html" class="btn-ghost">Entrer dans le Hall</a>
+        </div>
+      </div>
+      <p class="scroll-hint" aria-hidden="true">
+        <span>Découvrir</span>
+        <span class="arrow"></span>
+      </p>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SAS.1.1 — Visuels d'ambiance apaisante (image)
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="sas-1-1-h">
+      <div class="wrap">
+        <div class="section-head" style="text-align:center;">
+          <span class="eyebrow">Entrée · SAS.1</span>
+          <h2 class="h-section" id="sas-1-1-h" style="margin:0 auto;">Une ambiance qui vous enveloppe</h2>
+          <p class="lede" style="margin:0.9rem auto 0;">Couleurs chaudes, éclairage tamisé, formes rondes — l'espace est pensé pour apaiser, sans alarmer.</p>
+        </div>
+
+        <article class="content-block" id="SAS.1.1" data-content-id="SAS.1.1" data-media="image">
+          <header class="cb-head">
+            <span class="cb-id">SAS.1.1</span>
+            <span class="cb-section">SAS d'accueil · Entrée</span>
+          </header>
+          <h3 class="cb-title">Visuels d'ambiance apaisante</h3>
+          <div class="ph ph-image" role="group" aria-label="Placeholder image — visuels d'ambiance apaisante (couleurs chaudes, éclairage tamisé, formes rondes)">
+            <span class="ph-type">Image</span>
+            <p class="ph-desc">Visuels d'ambiance apaisante (couleurs chaudes, éclairage tamisé, formes rondes)</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Transition douce entre le quotidien et l'espace du musée. Ambiance apaisante, rythme lent et progressif. Le visiteur doit comprendre immédiatement les mécanismes de sortie. Le silence est à éviter.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton chaleureux, rassurant, enveloppant. Message d'introduction (voix féminine) : ~60-80 mots, rythme lent, phrases courtes, charge émotionnelle maîtrisée. Sous-titrage + transcription : fidèles au verbatim. Tutoriel (style sécurité en avion) : informatif et léger, vocabulaire simple. Mécanismes de sortie : langage clair — « vous pouvez quitter à tout moment ». Les sons et l'ambiance portent le sens autant que les mots.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SAS.1.2 — Message d'introduction (voix féminine) + sous-titrage +
+         transcription · SAS.1.3 — Musique calme (ambiance spa)
+         La trame sonore est toujours présente (UI/UX grille V4).
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="sas-voix-h">
+      <div class="wrap">
+        <div class="section-head" style="text-align:center;">
+          <span class="eyebrow">Voix &amp; trame sonore</span>
+          <h2 class="h-section" id="sas-voix-h" style="margin:0 auto;">Une voix vous accompagne</h2>
+        </div>
+
+        <!-- SAS.1.2 — Message d'introduction (audio + sous-titres + transcription) -->
+        <article class="content-block" id="SAS.1.2" data-content-id="SAS.1.2" data-media="audio">
+          <header class="cb-head">
+            <span class="cb-id">SAS.1.2</span>
+            <span class="cb-section">SAS d'accueil · Entrée</span>
+          </header>
+          <h3 class="cb-title">Message d'introduction (voix féminine)</h3>
+          <div class="ph ph-audio" role="group" aria-label="Placeholder audio — message d'introduction voix féminine, avec sous-titrage et transcription intégrale">
+            <span class="ph-type">Audio</span>
+            <p class="ph-desc">1 message d'introduction (voix féminine) + sous-titrage + transcription intégrale</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Transition douce entre le quotidien et l'espace du musée. Ambiance apaisante, rythme lent et progressif. Le visiteur doit comprendre immédiatement les mécanismes de sortie. Le silence est à éviter.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton chaleureux, rassurant, enveloppant. Message d'introduction (voix féminine) : ~60-80 mots, rythme lent, phrases courtes, charge émotionnelle maîtrisée. Sous-titrage + transcription : fidèles au verbatim. Tutoriel (style sécurité en avion) : informatif et léger, vocabulaire simple. Mécanismes de sortie : langage clair — « vous pouvez quitter à tout moment ». Les sons et l'ambiance portent le sens autant que les mots.</p>
+          </details>
+        </article>
+
+        <!-- SAS.1.3 — Musique calme (ambiance spa) -->
+        <article class="content-block" id="SAS.1.3" data-content-id="SAS.1.3" data-media="audio">
+          <header class="cb-head">
+            <span class="cb-id">SAS.1.3</span>
+            <span class="cb-section">SAS d'accueil · Entrée</span>
+          </header>
+          <h3 class="cb-title">Musique calme — ambiance spa</h3>
+          <div class="ph ph-audio" role="group" aria-label="Placeholder audio — musique calme, ambiance spa, trame sonore toujours présente">
+            <span class="ph-type">Audio</span>
+            <p class="ph-desc">1 musique calme (ambiance spa)</p>
+            <span class="ph-note">Trame sonore toujours présente — le silence est à éviter (grille V4). Réglage du volume disponible dans le menu d'accessibilité.</span>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Transition douce entre le quotidien et l'espace du musée. Ambiance apaisante, rythme lent et progressif. Le visiteur doit comprendre immédiatement les mécanismes de sortie. Le silence est à éviter.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton chaleureux, rassurant, enveloppant. Message d'introduction (voix féminine) : ~60-80 mots, rythme lent, phrases courtes, charge émotionnelle maîtrisée. Sous-titrage + transcription : fidèles au verbatim. Tutoriel (style sécurité en avion) : informatif et léger, vocabulaire simple. Mécanismes de sortie : langage clair — « vous pouvez quitter à tout moment ». Les sons et l'ambiance portent le sens autant que les mots.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         AVERTISSEMENT DE CONTENU SENSIBLE (SAS.1.3 — gate bienveillant).
+         Préservé de la V1 (.exp-warning « Avant de commencer »), restylé.
+         L'avertissement reste un overlay/affordance permanent ; ici présenté
+         en bloc visible avant la mise en condition.
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="sas-warning-h">
+      <div class="wrap">
+        <div class="sas-warning" role="region" aria-labelledby="sas-warning-h">
+          <span class="sw-eyebrow">
+            <svg class="sw-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+            Avant de commencer
+          </span>
+          <h2 id="sas-warning-h">Avertissement de contenu sensible</h2>
+          <p>Cette expérience aborde des thèmes liés à la santé mentale à travers des témoignages réels traduits en environnements sensoriels. <strong>Vous conservez en tout temps le contrôle de votre parcours.</strong></p>
+          <p>Vous avancez à votre rythme, et <strong>vous pouvez quitter à tout moment</strong>. Le bouton <strong>Espace protégé</strong> est introduit ici et reste visible en permanence pour rejoindre un espace calme.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         MÉCANISMES DE SORTIE + PRENEZ UN MOMENT (#respiration)
+         Ancre #respiration : cible de navigation préservée depuis la V1
+         (le bouton Espace protégé y défile). Tutoriel « style sécurité en
+         avion » : sortie, interface, modes de visite — affordances claires.
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" id="respiration" aria-labelledby="sas-calm-h">
+      <div class="wrap sas-calm">
+        <div class="section-head" style="text-align:center;">
+          <span class="eyebrow">Prenez un moment</span>
+          <h2 class="h-section" id="sas-calm-h" style="margin:0 auto;">Avant d'entrer, recentrez-vous</h2>
+          <p class="lede" style="margin:0.9rem auto 0;">Accordez-vous quelques instants. Rien ne presse — la trame sonore et l'ambiance vous accompagnent.</p>
+        </div>
+
+        <!-- Exercice de respiration inline (wired par js/breathing.js). -->
+        <div class="breathing-container">
+          <div class="breathing-circle-outer" aria-hidden="true">
+            <div class="breathing-circle"></div>
+          </div>
+          <p class="breathing-label" aria-live="polite"></p>
+          <div class="breathing-controls">
+            <button class="btn-ghost breathing-start" type="button">Commencer l'exercice</button>
+            <button class="btn-ghost breathing-stop" type="button" style="display:none;">Arrêter</button>
+          </div>
+        </div>
+
+        <!-- Calm carousel (preserved from V1) -->
+        <div class="calm-carousel" role="list" aria-label="Exercices d'apaisement proposés">
+          <div class="calm-card active" role="listitem">
+            <div class="calm-card-icon" aria-hidden="true">○</div>
+            <h4>Respiration 4-7-8</h4>
+            <p>Inspirez, retenez, expirez — cycle guidé apaisant.</p>
+          </div>
+          <div class="calm-card" role="listitem">
+            <div class="calm-card-icon" aria-hidden="true">◊</div>
+            <h4>Cohérence cardiaque</h4>
+            <p>Synchronisez votre souffle avec un rythme visuel doux.</p>
+          </div>
+          <div class="calm-card" role="listitem">
+            <div class="calm-card-icon" aria-hidden="true">∿</div>
+            <h4>Ancrage sensoriel</h4>
+            <p>Exercice de pleine conscience : 5-4-3-2-1 sensations.</p>
+          </div>
+        </div>
+
+        <!-- Mécanismes de sortie — affordances claires (langage clair, V1) -->
+        <div class="exit-row" aria-label="Mécanismes de sortie et repères">
+          <div class="exit-card">
+            <span class="exit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+            </span>
+            <h3>Quitter à tout moment</h3>
+            <p>Vous pouvez interrompre votre visite quand vous le souhaitez, sans rien perdre.</p>
+          </div>
+          <div class="exit-card">
+            <span class="exit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <h3>Espace protégé</h3>
+            <p>Un espace calme reste accessible en permanence, en bas de l'écran, pour faire une pause.</p>
+          </div>
+          <div class="exit-card">
+            <span class="exit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.2.61.71 1.07 1.51 1.27"/></svg>
+            </span>
+            <h3>Réglages d'accessibilité</h3>
+            <p>Volume, intensité, transcriptions et navigation clavier s'ajustent à vos besoins.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SAS.1.4 — Texte intégral accessible par assistant (immersive uniquement)
+         SAS.1.5 — Tutoriel de visite interactif (immersive uniquement)
+         Tous deux couverts nativement en HTML-lite — placeholder + note.
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="sas-immersive-h">
+      <div class="wrap">
+        <div class="section-head" style="text-align:center;">
+          <span class="eyebrow">Entrée · SAS.1 · Immersive uniquement</span>
+          <h2 class="h-section" id="sas-immersive-h" style="margin:0 auto;">Spécifique à l'expérience 3D</h2>
+          <p class="lede" style="margin:0.9rem auto 0;">Ces fonctionnalités sont propres à la version immersive. En version web allégée, leur contenu est déjà natif.</p>
+        </div>
+
+        <!-- SAS.1.4 — Texte intégral accessible par assistant (image / panneau textuel) -->
+        <article class="content-block" id="SAS.1.4" data-content-id="SAS.1.4" data-media="image">
+          <header class="cb-head">
+            <span class="cb-id">SAS.1.4</span>
+            <span class="cb-section">SAS d'accueil · Entrée</span>
+          </header>
+          <h3 class="cb-title">Texte intégral accessible par assistant</h3>
+          <div class="ph ph-image" role="group" aria-label="Placeholder — texte intégral accessible par assistant, immersive uniquement">
+            <span class="ph-type">Image</span>
+            <p class="ph-desc">Texte intégral accessible par assistant</p>
+            <span class="ph-note">Immersive uniquement : fonctionnalité spécifique à la version immersive 3D. Elle ouvre un panneau textuel structuré (alt-texts, transcriptions, résumés) en parallèle ou en remplacement de l'expérience. Pour la version allégée HTML, toutes ces informations sont déjà natives.</span>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Transition douce entre le quotidien et l'espace du musée. Ambiance apaisante, rythme lent et progressif. Le visiteur doit comprendre immédiatement les mécanismes de sortie. Le silence est à éviter.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton chaleureux, rassurant, enveloppant. Message d'introduction (voix féminine) : ~60-80 mots, rythme lent, phrases courtes, charge émotionnelle maîtrisée. Sous-titrage + transcription : fidèles au verbatim. Tutoriel (style sécurité en avion) : informatif et léger, vocabulaire simple. Mécanismes de sortie : langage clair — « vous pouvez quitter à tout moment ». Les sons et l'ambiance portent le sens autant que les mots.</p>
+          </details>
+        </article>
+
+        <!-- SAS.1.5 — Tutoriel de visite interactif (interactif, immersive uniquement) -->
+        <article class="content-block" id="SAS.1.5" data-content-id="SAS.1.5" data-media="interactive">
+          <header class="cb-head">
+            <span class="cb-id">SAS.1.5</span>
+            <span class="cb-section">SAS d'accueil · Entrée</span>
+          </header>
+          <h3 class="cb-title">Tutoriel de visite interactif</h3>
+          <div class="ph ph-interactive" role="group" aria-label="Placeholder interactif — tutoriel de visite style sécurité en avion, immersive uniquement">
+            <span class="ph-type">Interactif</span>
+            <p class="ph-desc">1 tutoriel de visite interactif (style sécurité en avion) : bouton de sortie, interface, modes de visite</p>
+            <span class="ph-note">Immersive uniquement : tutoriel interactif réservé à l'expérience 3D. En version allégée HTML, la capsule vidéo welcome de l'accueil (PI.1.3) couvre déjà la mise en condition.</span>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Transition douce entre le quotidien et l'espace du musée. Ambiance apaisante, rythme lent et progressif. Le visiteur doit comprendre immédiatement les mécanismes de sortie. Le silence est à éviter.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton chaleureux, rassurant, enveloppant. Message d'introduction (voix féminine) : ~60-80 mots, rythme lent, phrases courtes, charge émotionnelle maîtrisée. Sous-titrage + transcription : fidèles au verbatim. Tutoriel (style sécurité en avion) : informatif et léger, vocabulaire simple. Mécanismes de sortie : langage clair — « vous pouvez quitter à tout moment ». Les sons et l'ambiance portent le sens autant que les mots.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         SAS.1.6 — Présentation animée des mécanismes de sortie (interactif)
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="sas-1-6-h">
+      <div class="wrap">
+        <div class="section-head" style="text-align:center;">
+          <span class="eyebrow">Mécanismes de sortie</span>
+          <h2 class="h-section" id="sas-1-6-h" style="margin:0 auto;">Toujours libre de partir</h2>
+        </div>
+
+        <article class="content-block" id="SAS.1.6" data-content-id="SAS.1.6" data-media="interactive">
+          <header class="cb-head">
+            <span class="cb-id">SAS.1.6</span>
+            <span class="cb-section">SAS d'accueil · Entrée</span>
+          </header>
+          <h3 class="cb-title">Présentation animée des mécanismes de sortie</h3>
+          <div class="ph ph-interactive" role="group" aria-label="Placeholder interactif — présentation animée des mécanismes de sortie (Espace protégé)">
+            <span class="ph-type">Interactif</span>
+            <p class="ph-desc">Présentation animée des mécanismes de sortie (Espace Protégé)</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Transition douce entre le quotidien et l'espace du musée. Ambiance apaisante, rythme lent et progressif. Le visiteur doit comprendre immédiatement les mécanismes de sortie. Le silence est à éviter.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton chaleureux, rassurant, enveloppant. Message d'introduction (voix féminine) : ~60-80 mots, rythme lent, phrases courtes, charge émotionnelle maîtrisée. Sous-titrage + transcription : fidèles au verbatim. Tutoriel (style sécurité en avion) : informatif et léger, vocabulaire simple. Mécanismes de sortie : langage clair — « vous pouvez quitter à tout moment ». Les sons et l'ambiance portent le sens autant que les mots.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         ONWARD — vers le Hall central (cible de navigation V1)
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="sas-onward-h">
+      <div class="wrap-text sas-onward">
+        <span class="eyebrow">Quand vous êtes prêt·e</span>
+        <h2 class="h-section" id="sas-onward-h" style="margin:0 auto;">Entrer dans le Hall central</h2>
+        <p class="lede">Le Hall central « La Maison » est votre point de repos et de choix. Vous pouvez y revenir à tout moment, entre chaque dôme.</p>
+        <p style="margin:1.4rem auto 0;">
+          <a href="hall-central.html" class="btn-primary">Continuer vers le Hall <span class="arrow">→</span></a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ░░ FOOTER (verbatim from _ref/PARTIALS.html) ░░ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="img/logo-onyx.png" alt="/inVISIBLE" class="footer-brand-logo">
+        <p>Un musée virtuel immersif qui traduit des témoignages de santé mentale en environnements sensoriels. Créé avec respect, éthique et bienveillance.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <ul>
+          <li><a href="sas-in.html">L'expérience web</a></li>
+          <li><a href="hall-central.html">Hall central</a></li>
+          <li><a href="dome1-acte1.html">Dôme 1</a></li>
+          <li><a href="dome2-acte1.html">Dôme 2</a></li>
+          <li><a href="dome3-acte1.html">Dôme 3</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Le projet</h4>
+        <ul>
+          <li><a href="projet.html">À propos</a></li>
+          <li><a href="credits.html">Crédits &amp; Contact</a></li>
+          <li><a href="ressources.html">Ressources</a></li>
+          <li><a href="accessibilite.html">Accessibilité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Soutien</h4>
+        <ul>
+          <li><a href="ressources.html">Lignes d'aide</a></li>
+          <li><a href="ressources.html">Ressources supplémentaires</a></li>
+          <li><a href="accessibilite.html">Réglages d'accessibilité</a></li>
+          <li><a href="credits.html">Nous contacter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 /inVISIBLE — Société des Arts Technologiques. Tous droits réservés.</p>
+      <ul class="footer-bottom-links">
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ░░ SUPPORT-ZONE (verbatim from _ref/PARTIALS.html) ░░ -->
+  <div class="support-zone">
+    <button class="support-dot" aria-label="Ressources de soutien" aria-expanded="false" aria-controls="support-menu">i</button>
+    <div class="support-dropdown" id="support-menu" role="region" aria-label="Lignes d'aide et soutien">
+      <div class="support-dropdown-title">Besoin d'aide ?</div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-denim);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Tel-Aide</strong>
+          <span>Écoute 24/7, confidentielle et gratuite</span><br>
+          <a href="tel:5149351101">514 935-1101</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-teal);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Prévention du suicide</strong>
+          <span>Ligne québécoise — 24/7</span><br>
+          <a href="tel:18662773553">1-866-APPELLE (277-3553)</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-plum);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Crisis Text Line</strong>
+          <span>Soutien par texto — 24/7</span><br>
+          <a href="sms:686868">Textez BONJOUR au 686868</a>
+        </div>
+      </div>
+      <div class="support-dropdown-footer">
+        <a href="ressources.html">Voir toutes les ressources →</a>
+      </div>
+    </div>
+    <button class="espace-protege" aria-label="Espace protégé — accéder à un espace calme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Espace protégé
+    </button>
+  </div>
+
+  <!-- ░░ PRESENCE-ZONE (verbatim from _ref/PARTIALS.html) ░░ -->
+  <div class="presence-zone">
+    <div class="presence-indicator" aria-label="Visiteurs actuellement présents">
+    <div class="presence-dots" aria-hidden="true">
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+    </div>
+    <span class="presence-text">
+      <span class="presence-count">0</span>
+      <span class="presence-label">présence</span>
+    </span>
+    </div>
+    <button class="a11y-dot" aria-label="Réglages d'accessibilité" aria-expanded="false" aria-controls="a11y-quick-menu">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+    <div class="a11y-dropdown" id="a11y-quick-menu" role="region" aria-label="Réglages rapides d'accessibilité">
+      <div class="a11y-dropdown-title">Accessibilité</div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+          Animations
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Désactiver les animations" tabindex="0" data-key="a11y-reduce-motion"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z"/></svg>
+          Contraste
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Activer le contraste élevé" tabindex="0" data-key="a11y-high-contrast"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+          Texte agrandi
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Agrandir le texte" tabindex="0" data-key="a11y-large-text"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+          Focus renforcé
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Renforcer les indicateurs de focus" tabindex="0" data-key="a11y-focus-enhanced"></div>
+      </div>
+      <div class="a11y-volume-row">
+        <button class="a11y-mute-btn" aria-label="Couper le son" tabindex="0">
+          <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+        <input type="range" class="a11y-volume-slider" min="0" max="100" value="80" aria-label="Volume" tabindex="0">
+        <span class="a11y-volume-value">80%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ ESPACE-PROTEGE-MODAL (verbatim from _ref/PARTIALS.html) ░░ -->
+  <div id="espace-protege-modal" class="modal" role="dialog" aria-label="Espace protégé" aria-modal="true" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(18,18,18,0.95);backdrop-filter:blur(30px);">
+    <div style="max-width:600px;margin:auto;padding:4rem 2rem;text-align:center;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+      <h2 style="margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em;">ESPACE PROTÉGÉ</h2>
+      <p style="margin-bottom:2rem;">Vous êtes dans un espace calme et sécuritaire. Prenez le temps dont vous avez besoin. Aucune pression, aucun jugement.</p>
+      <p style="font-size:0.9rem;margin-bottom:2rem;">Si vous avez besoin de soutien, n'hésitez pas à contacter une ligne d'aide :<br><strong>Tel-Aide : 514 935-1101</strong></p>
+      <button class="modal-close btn-ghost" onclick="document.getElementById('espace-protege-modal').style.display='none'">RETOURNER À L'EXPÉRIENCE</button>
+    </div>
+  </div>
+
+  <script src="js/breathing.js" defer></script>
+  <script src="js/site.js" defer></script>
+</body>
+</html>

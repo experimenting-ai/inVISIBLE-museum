@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="/inVISIBLE : L'empreinte de nos silences — Musée virtuel immersif sur la santé mentale">
+  <title>SAS OUT — Décompression — /inVISIBLE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       SAS OUT — Décompression — page-scoped LAYOUT ONLY (no new colours;
+       tokens/vars reused from css/style.css). Restyles V1's SAS de sortie
+       flow (hero d'atterrissage + message d'espoir + ressources de soutien
+       + rétroaction + message final) with the V3 design system. Persistent
+       UI, organic gradient, components and palette all come from style.css.
+       body[data-act="3"] → pale « espoir / résolution » gradient tint.
+       ════════════════════════════════════════════════════════════════════ -->
+  <style>
+    /* Generic content wrappers (the built CSS ships tokens, not page wraps) */
+    .wrap        { max-width: var(--max-content); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
+    .wrap-text   { max-width: var(--max-text);    margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
+    .section-pad { padding-block: clamp(3rem, 7vw, 6rem); position: relative; z-index: 1; }
+    .section-head { margin-bottom: clamp(1.75rem, 4vw, 2.75rem); }
+
+    /* HERO d'atterrissage — organic gradient, half viewport, doux (uses .organic-hero) */
+    .hero-sasout {
+      position: relative;
+      min-height: 62vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: clamp(2.5rem, 7vw, 5rem) 1.5rem;
+    }
+    .hero-sasout-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 1.3rem;
+      max-width: 720px;
+    }
+    .hero-sasout .lede { max-width: 48ch; }
+
+    /* Message d'espoir (V1 blockquote, restyled — no new colour) */
+    .hope-block { max-width: 660px; margin: 0 auto; text-align: center; }
+    .hope-block blockquote {
+      font-family: var(--f-display); font-weight: 300; font-style: italic;
+      font-size: clamp(1.15rem, 2.6vw, 1.6rem); line-height: 1.55;
+      color: var(--ink-2); border: 0; margin: 0; text-wrap: balance;
+    }
+
+    /* Lecteur musical / voix de soutien — wrappers neutres (style depuis tokens) */
+    .decompress-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: clamp(1rem, 2.5vw, 1.6rem); margin-top: var(--space-lg);
+    }
+
+    /* Filet de sécurité — ressources d'aide (toujours visible, SO.2.1) */
+    .safety-net {
+      max-width: 760px; margin: 0 auto;
+      background: var(--bg); border: 1px solid var(--line);
+      border-left: 4px solid var(--accent); border-radius: 16px;
+      padding: clamp(1.5rem, 4vw, 2.25rem);
+      box-shadow: var(--glass-shadow);
+    }
+    .safety-net .sn-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--f-mono); font-size: 11px; letter-spacing: var(--t-caps);
+      text-transform: uppercase; color: var(--accent-text);
+      margin-bottom: 0.9rem;
+    }
+    .safety-net .sn-icon { width: 18px; height: 18px; stroke: var(--accent-text); fill: none; stroke-width: 2; }
+    .safety-net h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--ink); margin-bottom: 0.6rem; letter-spacing: var(--t-h2); }
+    .safety-net p  { color: var(--ink-2); margin-bottom: 1rem; }
+    .helpline-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.9rem; }
+    .helpline-item { display: flex; gap: 0.9rem; align-items: flex-start; }
+    .helpline-icon {
+      flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px;
+      display: grid; place-items: center; color: #fff;
+    }
+    .helpline-icon svg { width: 20px; height: 20px; fill: currentColor; }
+    .helpline-item strong { display: block; font-family: var(--f-display); font-weight: 600; color: var(--ink); }
+    .helpline-item .hl-meta { font-size: 0.85rem; color: var(--meta); }
+    .helpline-item a { color: var(--accent-text); text-decoration: none; font-weight: 500; }
+    .helpline-item a:hover, .helpline-item a:focus-visible { text-decoration: underline; }
+    .safety-net .sn-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-top: 1.4rem; }
+
+    /* Rétroaction (SO.3.1 → formulaire unique credits.html#PI.6.1) */
+    .feedback-card {
+      max-width: 680px; margin: 0 auto; text-align: center;
+      background: var(--bg-2); border: 1px solid var(--line); border-radius: 16px;
+      padding: clamp(1.75rem, 4vw, 2.5rem);
+    }
+    .feedback-card h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.3rem, 2.8vw, 1.8rem); color: var(--ink); margin-bottom: 0.6rem; letter-spacing: var(--t-h2); }
+    .feedback-card p  { color: var(--ink-2); margin: 0 auto 1.4rem; max-width: 52ch; }
+
+    /* Clôture du parcours — message final + retours (V1 préservé) */
+    .sasout-closing { text-align: center; padding-block: clamp(3rem, 7vw, 6rem); }
+    .sasout-closing .closing-final {
+      font-family: var(--f-display); font-weight: 300; font-style: italic;
+      font-size: clamp(1.1rem, 2.4vw, 1.5rem); line-height: 1.55;
+      color: var(--ink-2); max-width: 640px; margin: 0 auto 1.8rem; text-wrap: balance;
+    }
+    .closing-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; justify-content: center; }
+
+    @media (max-width: 720px) { .decompress-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body data-theme="light" data-act="3">
+  <!-- ════════════════════════════════════════════════════════════════════
+       SKIP-LINK (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
+
+  <!-- ░░ SVG warp filter — feTurbulence def for the organic gradient (v2) ░░ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="warp-collee" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves="2" seed="17" stitchTiles="stitch" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="26" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       NAV — STATIC (verbatim from _ref/PARTIALS.html). In normal flow:
+       it scrolls away with the page. Active link set by js/site.js.
+       ════════════════════════════════════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Accueil /inVISIBLE">
+        <img src="img/logo-onyx.png" alt="/inVISIBLE" class="nav-logo-img">
+        <span class="nav-logo-text">/inVISIBLE</span>
+      </a>
+      <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">ACCUEIL</a></li>
+        <li><a href="sas-in.html">EXPÉRIENCE</a></li>
+        <li><a href="projet.html">LE PROJET</a></li>
+        <li><a href="ressources.html">RESSOURCES</a></li>
+        <li><a href="accessibilite.html">ACCESSIBILITÉ</a></li>
+      </ul>
+      <div class="lang-toggle" role="group" aria-label="Choix de langue">
+        <button class="lang-btn lang-active" aria-pressed="true">FR</button>
+        <button class="lang-btn" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         HERO d'atterrissage (V1 « Merci d'avoir traversé cet espace »)
+         Organic gradient — Acte 3 : tint pâle, porteur d'espoir.
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="organic-hero hero-sasout" id="zone-decompression" aria-labelledby="sasout-hero-title">
+      <div class="organic-hero-field" aria-hidden="true"></div>
+      <div class="hero-sasout-inner">
+        <span class="eyebrow">SAS de sortie · Décompression</span>
+        <h1 class="h-display" id="sasout-hero-title">
+          Merci d'avoir traversé <em>cet espace.</em>
+        </h1>
+        <p class="lede">
+          Ce que vous venez de vivre mérite un moment. Prenez le temps de laisser l'expérience se déposer.
+        </p>
+      </div>
+      <p class="scroll-hint" aria-hidden="true">Défiler pour déposer</p>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         ZONE 1 — DÉCOMPRESSION
+         SO.1.1 visuels de transition · SO.1.2 musique espoir ·
+         SO.1.3 voix de soutien · SO.1.4 texte de conclusion
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" aria-labelledby="decompression-h">
+      <div class="wrap">
+        <div class="section-head" style="text-align:center;">
+          <span class="eyebrow">Décompression · SO.1</span>
+          <h2 class="h-section" id="decompression-h" style="margin:0 auto;">Déposer l'expérience, en douceur</h2>
+          <p class="lede" style="margin:0.75rem auto 0;max-width:54ch;">
+            Une transition vers le réel, ancrée et bienveillante. Couleurs vives, musique encourageante, et une voix qui accompagne la sortie.
+          </p>
+        </div>
+
+        <!-- ── SO.1.1 — Visuels de transition (image) ───────────────────── -->
+        <article class="content-block" id="SO.1.1" data-content-id="SO.1.1" data-media="image">
+          <header class="cb-head">
+            <span class="cb-id">SO.1.1</span>
+            <span class="cb-section">SAS de sortie · Décompression</span>
+          </header>
+          <h3 class="cb-title">Visuels de transition (couleurs vives)</h3>
+          <div class="ph ph-image" role="group" aria-label="Placeholder image — Visuels de transition, couleurs vives, ambiance encourageante">
+            <span class="ph-type">Image</span>
+            <p class="ph-desc">Visuels de transition (couleurs vives, ambiance encourageante)</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre au visiteur de « déposer » l'expérience. Transition vers des couleurs vives et une musique encourageante. Le visiteur doit pouvoir poser une action concrète.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton doux, ancré, encourageant. Transition vers le réel. Voix de soutien : chaleureuse, rassurante, ~60-80 mots, rythme lent. Texte de conclusion : réflexif, ~50 mots. Phrases courtes. Musique : porteuse d'espoir. L'écriture aide à « déposer » sans relancer l'intensité. Le texte agit comme un sas narratif.</p>
+          </details>
+        </article>
+
+        <div class="decompress-grid">
+          <!-- ── SO.1.2 — Musique espoir + accompagnement (audio) ───────── -->
+          <article class="content-block" id="SO.1.2" data-content-id="SO.1.2" data-media="audio">
+            <header class="cb-head">
+              <span class="cb-id">SO.1.2</span>
+              <span class="cb-section">SAS de sortie · Décompression</span>
+            </header>
+            <h3 class="cb-title">Musique porteuse d'espoir</h3>
+            <div class="ph ph-audio" role="group" aria-label="Placeholder audio — Musique espoir et accompagnement">
+              <span class="ph-type">Audio</span>
+              <p class="ph-desc">1 musique (espoir + accompagnement)</p>
+            </div>
+            <details class="cb-brief">
+              <summary>Intention éditoriale (grille V4)</summary>
+              <p class="cb-obj"><b>Objectif :</b> Permettre au visiteur de « déposer » l'expérience. Transition vers des couleurs vives et une musique encourageante. Le visiteur doit pouvoir poser une action concrète.</p>
+              <p class="cb-ton"><b>Ton &amp; style :</b> Ton doux, ancré, encourageant. Transition vers le réel. Voix de soutien : chaleureuse, rassurante, ~60-80 mots, rythme lent. Texte de conclusion : réflexif, ~50 mots. Phrases courtes. Musique : porteuse d'espoir. L'écriture aide à « déposer » sans relancer l'intensité. Le texte agit comme un sas narratif.</p>
+            </details>
+          </article>
+
+          <!-- ── SO.1.3 — Voix de soutien + transcription (audio) ───────── -->
+          <article class="content-block" id="SO.1.3" data-content-id="SO.1.3" data-media="audio">
+            <header class="cb-head">
+              <span class="cb-id">SO.1.3</span>
+              <span class="cb-section">SAS de sortie · Décompression</span>
+            </header>
+            <h3 class="cb-title">Voix de soutien (+ transcription)</h3>
+            <div class="ph ph-audio" role="group" aria-label="Placeholder audio — Voix de soutien et transcription">
+              <span class="ph-type">Audio</span>
+              <p class="ph-desc">1 voix de soutien + transcription</p>
+            </div>
+            <details class="cb-brief">
+              <summary>Intention éditoriale (grille V4)</summary>
+              <p class="cb-obj"><b>Objectif :</b> Permettre au visiteur de « déposer » l'expérience. Transition vers des couleurs vives et une musique encourageante. Le visiteur doit pouvoir poser une action concrète.</p>
+              <p class="cb-ton"><b>Ton &amp; style :</b> Ton doux, ancré, encourageant. Transition vers le réel. Voix de soutien : chaleureuse, rassurante, ~60-80 mots, rythme lent. Texte de conclusion : réflexif, ~50 mots. Phrases courtes. Musique : porteuse d'espoir. L'écriture aide à « déposer » sans relancer l'intensité. Le texte agit comme un sas narratif.</p>
+            </details>
+          </article>
+        </div>
+
+        <!-- ── SO.1.4 — Texte de conclusion (texte) ─────────────────────── -->
+        <article class="content-block" id="SO.1.4" data-content-id="SO.1.4" data-media="text" style="margin-top:var(--space-lg);">
+          <header class="cb-head">
+            <span class="cb-id">SO.1.4</span>
+            <span class="cb-section">SAS de sortie · Décompression</span>
+          </header>
+          <h3 class="cb-title">Texte de conclusion</h3>
+          <div class="ph ph-text" role="group" aria-label="Placeholder texte — Texte de conclusion réflexif">
+            <span class="ph-type">Texte</span>
+            <p class="ph-desc">1 texte de conclusion</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre au visiteur de « déposer » l'expérience. Transition vers des couleurs vives et une musique encourageante. Le visiteur doit pouvoir poser une action concrète.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton doux, ancré, encourageant. Transition vers le réel. Voix de soutien : chaleureuse, rassurante, ~60-80 mots, rythme lent. Texte de conclusion : réflexif, ~50 mots. Phrases courtes. Musique : porteuse d'espoir. L'écriture aide à « déposer » sans relancer l'intensité. Le texte agit comme un sas narratif.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         ZONE 2 — RESSOURCES D'AIDE (SO.2.1)
+         Filet de sécurité concret et immédiat — toujours visible. Doublé en
+         permanence par le bouton Espace protégé (EP.1.1) en bas à droite.
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" id="zone-ressources" aria-labelledby="ressources-h">
+      <div class="wrap">
+        <div class="safety-net" role="region" aria-labelledby="ressources-h">
+          <span class="sn-eyebrow">
+            <svg class="sn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Vous n'êtes pas seul·e
+          </span>
+          <h2 id="ressources-h">Si vous avez besoin de parler</h2>
+          <p>Des ressources concrètes, directes et à jour. En quelques secondes, vous pouvez joindre une écoute gratuite et confidentielle, 24/7.</p>
+          <ul class="helpline-list">
+            <li class="helpline-item">
+              <span class="helpline-icon" style="background:var(--c-denim);" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </span>
+              <div>
+                <strong>Tel-Aide</strong>
+                <span class="hl-meta">Écoute 24/7, confidentielle et gratuite — </span>
+                <a href="tel:5149351101">514 935-1101</a>
+              </div>
+            </li>
+            <li class="helpline-item">
+              <span class="helpline-icon" style="background:var(--c-teal);" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </span>
+              <div>
+                <strong>Ligne québécoise de prévention du suicide</strong>
+                <span class="hl-meta">Disponible 24/7 — </span>
+                <a href="tel:18662773553">1-866-APPELLE (277-3553)</a>
+              </div>
+            </li>
+            <li class="helpline-item">
+              <span class="helpline-icon" style="background:var(--c-plum);" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </span>
+              <div>
+                <strong>Crisis Text Line</strong>
+                <span class="hl-meta">Soutien par texto — 24/7 — </span>
+                <a href="sms:686868">Textez BONJOUR au 686868</a>
+              </div>
+            </li>
+          </ul>
+          <div class="sn-actions">
+            <a href="ressources.html" class="btn-primary">Voir toutes les ressources <span class="arrow">→</span></a>
+            <a href="credits.html#PI.6.1" class="btn-ghost">Souhaitez-vous être contacté·e ?</a>
+          </div>
+        </div>
+
+        <!-- ── SO.2.1 — Texte de ressources avec liens directs (interactif) ── -->
+        <article class="content-block" id="SO.2.1" data-content-id="SO.2.1" data-media="interactive" style="margin-top:var(--space-lg);">
+          <header class="cb-head">
+            <span class="cb-id">SO.2.1</span>
+            <span class="cb-section">SAS de sortie · Ressources d'aide</span>
+          </header>
+          <h3 class="cb-title">Texte de ressources avec liens d'aide directs</h3>
+          <div class="ph ph-interactive" role="group" aria-label="Placeholder interactif — Texte de ressources avec liens directs vers organismes d'aide">
+            <span class="ph-type">Interactif</span>
+            <p class="ph-desc">1 texte de ressources avec liens directs vers organismes d'aide</p>
+            <p class="ph-note">Filet de sécurité d'urgence accessible en tout temps via le bouton Espace protégé (EP.1.1, en bas à droite) — sans avoir à traverser les dômes. À distinguer de PI.4.1 (volet pédagogique « Ressources » / À propos : fiches Douglas, bibliographie, guide médiateurs).</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Offrir un filet de sécurité concret et immédiat. Personne ne quitte sans accès à de l'aide. Impératif éthique : pas d'outil sans soutien.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Ton informatif, direct, bienveillant. Texte de ressources : clair, concret, à jour. Phrases très courtes. Textes de caution pour liens externes. Le visiteur en besoin doit trouver l'aide en quelques secondes.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         ZONE 3 — RÉTROACTION (SO.3.1, fusionnée avec PI.6.1)
+         Action concrète de fin de parcours. Renvoi vers le formulaire unique
+         de contact/rétroaction de credits.html#PI.6.1 (décision AQ NA_231).
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="section-pad" id="zone-retroaction" aria-labelledby="retroaction-h">
+      <div class="wrap">
+        <div class="feedback-card">
+          <span class="eyebrow">Rétroaction · SO.3</span>
+          <h2 id="retroaction-h">Partagez votre expérience</h2>
+          <p>Votre rétroaction nous aide à améliorer l'expérience pour les futurs visiteurs. Un seul formulaire réunit contact et rétroaction pour tout le site.</p>
+          <a href="credits.html#PI.6.1" class="btn-primary">Déposer ma rétroaction <span class="arrow">→</span></a>
+        </div>
+
+        <!-- ── SO.3.1 — Renvoi vers le formulaire unique PI.6.1 (interactif) ── -->
+        <article class="content-block" id="SO.3.1" data-content-id="SO.3.1" data-media="interactive" style="margin-top:var(--space-lg);">
+          <header class="cb-head">
+            <span class="cb-id">SO.3.1</span>
+            <span class="cb-section">SAS de sortie · Rétroaction (fusionnée avec PI.6.1)</span>
+          </header>
+          <h3 class="cb-title">Renvoi vers le formulaire unique de rétroaction</h3>
+          <div class="ph ph-interactive" role="group" aria-label="Placeholder interactif — Renvoi vers le formulaire unique de rétroaction PI.6.1">
+            <span class="ph-type">Interactif</span>
+            <p class="ph-desc">Renvoi vers le formulaire unique de PI.6.1 (Contact). Décision projet (AQ NA_231) : un seul formulaire de contact/rétroaction pour tout le site.</p>
+            <p class="ph-note">Le formulaire de PI.6.1 est exposé depuis le SAS OUT — le visiteur peut déposer sa rétroaction sans quitter le parcours. Cible : credits.html#PI.6.1. Un seul point de dépôt unifie la rétroaction et la prise de contact (évite la duplication identifiée par l'AQ MNC, NA_231).</p>
+          </div>
+          <details class="cb-brief">
+            <summary>Intention éditoriale (grille V4)</summary>
+            <p class="cb-obj"><b>Objectif :</b> Permettre au visiteur de poser une action concrète en fin de parcours. Recueillir la rétroaction pour le rapport final MNC.</p>
+            <p class="cb-ton"><b>Ton &amp; style :</b> Voir PI.6.1 — un seul formulaire de contact/rétroaction est utilisé dans tout le site.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CLÔTURE — message final (V1 préservé) + retours
+         ══════════════════════════════════════════════════════════════════ -->
+    <section class="sasout-closing" aria-labelledby="sasout-closing-h">
+      <div class="wrap-text">
+        <p class="hope-block" style="margin-bottom:1.6rem;">
+          <span class="closing-final">
+            Le chemin vers la résilience n'est pas une ligne droite. Mais la transformation, une fois vécue, ne s'efface pas. Vous n'êtes pas seul·e.
+          </span>
+        </p>
+        <h2 class="h-section" id="sasout-closing-h" style="margin:0 auto 1rem;">
+          Merci d'avoir été présent·e.
+        </h2>
+        <p class="closing-final">
+          /inVISIBLE existe pour que ce qui est trop souvent tu puisse, pour un instant, devenir perceptible.
+        </p>
+        <div class="closing-actions">
+          <a href="hall-central.html" class="btn-primary">Retourner au Hall central <span class="arrow">→</span></a>
+          <a href="ressources.html" class="btn-ghost">Toutes les ressources</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       FOOTER (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="img/logo-onyx.png" alt="/inVISIBLE" class="footer-brand-logo">
+        <p>Un musée virtuel immersif qui traduit des témoignages de santé mentale en environnements sensoriels. Créé avec respect, éthique et bienveillance.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <ul>
+          <li><a href="sas-in.html">L'expérience web</a></li>
+          <li><a href="hall-central.html">Hall central</a></li>
+          <li><a href="dome1-acte1.html">Dôme 1</a></li>
+          <li><a href="dome2-acte1.html">Dôme 2</a></li>
+          <li><a href="dome3-acte1.html">Dôme 3</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Le projet</h4>
+        <ul>
+          <li><a href="projet.html">À propos</a></li>
+          <li><a href="credits.html">Crédits &amp; Contact</a></li>
+          <li><a href="ressources.html">Ressources</a></li>
+          <li><a href="accessibilite.html">Accessibilité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Soutien</h4>
+        <ul>
+          <li><a href="ressources.html">Lignes d'aide</a></li>
+          <li><a href="ressources.html">Ressources supplémentaires</a></li>
+          <li><a href="accessibilite.html">Réglages d'accessibilité</a></li>
+          <li><a href="credits.html">Nous contacter</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 /inVISIBLE — Société des Arts Technologiques. Tous droits réservés.</p>
+      <ul class="footer-bottom-links">
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       SUPPORT-ZONE (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <div class="support-zone">
+    <button class="support-dot" aria-label="Ressources de soutien" aria-expanded="false" aria-controls="support-menu">i</button>
+    <div class="support-dropdown" id="support-menu" role="region" aria-label="Lignes d'aide et soutien">
+      <div class="support-dropdown-title">Besoin d'aide ?</div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-denim);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Tel-Aide</strong>
+          <span>Écoute 24/7, confidentielle et gratuite</span><br>
+          <a href="tel:5149351101">514 935-1101</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-teal);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Prévention du suicide</strong>
+          <span>Ligne québécoise — 24/7</span><br>
+          <a href="tel:18662773553">1-866-APPELLE (277-3553)</a>
+        </div>
+      </div>
+      <div class="support-dropdown-item">
+        <div class="support-icon" style="background:var(--c-plum);color:#fff;">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="support-info">
+          <strong>Crisis Text Line</strong>
+          <span>Soutien par texto — 24/7</span><br>
+          <a href="sms:686868">Textez BONJOUR au 686868</a>
+        </div>
+      </div>
+      <div class="support-dropdown-footer">
+        <a href="ressources.html">Voir toutes les ressources →</a>
+      </div>
+    </div>
+    <button class="espace-protege" aria-label="Espace protégé — accéder à un espace calme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Espace protégé
+    </button>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       PRESENCE-ZONE (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <div class="presence-zone">
+    <div class="presence-indicator" aria-label="Visiteurs actuellement présents">
+    <div class="presence-dots" aria-hidden="true">
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+      <span class="presence-dot"></span>
+    </div>
+    <span class="presence-text">
+      <span class="presence-count">0</span>
+      <span class="presence-label">présence</span>
+    </span>
+    </div>
+    <button class="a11y-dot" aria-label="Réglages d'accessibilité" aria-expanded="false" aria-controls="a11y-quick-menu">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+    <div class="a11y-dropdown" id="a11y-quick-menu" role="region" aria-label="Réglages rapides d'accessibilité">
+      <div class="a11y-dropdown-title">Accessibilité</div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+          Animations
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Désactiver les animations" tabindex="0" data-key="a11y-reduce-motion"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z"/></svg>
+          Contraste
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Activer le contraste élevé" tabindex="0" data-key="a11y-high-contrast"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+          Texte agrandi
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Agrandir le texte" tabindex="0" data-key="a11y-large-text"></div>
+      </div>
+      <div class="a11y-dropdown-item">
+        <span class="a11y-dropdown-label">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+          Focus renforcé
+        </span>
+        <div class="a11y-mini-toggle" role="switch" aria-checked="false" aria-label="Renforcer les indicateurs de focus" tabindex="0" data-key="a11y-focus-enhanced"></div>
+      </div>
+      <div class="a11y-volume-row">
+        <button class="a11y-mute-btn" aria-label="Couper le son" tabindex="0">
+          <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        </button>
+        <input type="range" class="a11y-volume-slider" min="0" max="100" value="80" aria-label="Volume" tabindex="0">
+        <span class="a11y-volume-value">80%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       ESPACE-PROTEGE-MODAL (verbatim from _ref/PARTIALS.html)
+       ════════════════════════════════════════════════════════════════════ -->
+  <div id="espace-protege-modal" class="modal" role="dialog" aria-label="Espace protégé" aria-modal="true" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(18,18,18,0.95);backdrop-filter:blur(30px);">
+    <div style="max-width:600px;margin:auto;padding:4rem 2rem;text-align:center;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+      <h2 style="margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em;">ESPACE PROTÉGÉ</h2>
+      <p style="margin-bottom:2rem;">Vous êtes dans un espace calme et sécuritaire. Prenez le temps dont vous avez besoin. Aucune pression, aucun jugement.</p>
+      <p style="font-size:0.9rem;margin-bottom:2rem;">Si vous avez besoin de soutien, n'hésitez pas à contacter une ligne d'aide :<br><strong>Tel-Aide : 514 935-1101</strong></p>
+      <button class="modal-close btn-ghost" onclick="document.getElementById('espace-protege-modal').style.display='none'">RETOURNER À L'EXPÉRIENCE</button>
+    </div>
+  </div>
+
+  <script src="js/site.js" defer></script>
+</body>
+</html>
